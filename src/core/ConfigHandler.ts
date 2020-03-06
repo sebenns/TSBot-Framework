@@ -1,26 +1,20 @@
 import * as fs from 'fs';
+import * as path from "path";
 
 export class ConfigHandler
 {
-    private static readonly configPath = `${__dirname}/../config/config.json`;
-    private static configuration: Config;
-
-    public static getToken(): string { return this.configuration.token; }
-    public static getCmdPrefix(): string { return this.configuration.prefix; }
+    private static readonly configPath = path.resolve(__dirname, '../config');
 
     /**
-     *  Creates a configuration file with some placeholder in config directory.
+     * Creates a configuration file in config directory with provided name and data.
+     * @param {string} fileName - name of configuration file
+     * @param {any} json - data as JSON Object
      */
-    public static createConfigFile(): void
+    public static createConfigFile<T>(fileName: string, json: T): void
     {
         try
         {
-            const configScheme: Config = {
-                owner: 'UserID here.',
-                prefix: '!',
-                token : 'Your Token here.'
-            };
-            fs.writeFileSync(`${this.configPath}`, JSON.stringify(configScheme, null, 4));
+            fs.writeFileSync(path.resolve(this.configPath, `${fileName}.json`), JSON.stringify(json, null, 4));
         }
         catch (error)
         {
@@ -30,19 +24,20 @@ export class ConfigHandler
     }
 
     /**
-     * Reads the configuration file and stores the read JSON in the configuration attribute.
+     * Loads the configuration file with provided fileName, throws Error if it does not exist.
+     * @param {string} fileName - name of the file to check on.
      * @throws Error, if configuration file does not exist.
      */
-    public static loadConfig(): void
+    public static loadConfig<T>(fileName: string): T
     {
-        if (!fs.existsSync(this.configPath))
+        if (!fs.existsSync(path.resolve(this.configPath, `${fileName}.json`)))
         {
             throw Error('The specified configuration file could not be found.');
         }
 
         try
         {
-            this.configuration = JSON.parse(fs.readFileSync(`${this.configPath}`, 'utf-8'));
+            return JSON.parse(fs.readFileSync(path.resolve(this.configPath, `${fileName}.json`), 'utf-8'));
         }
         catch (error)
         {
@@ -50,11 +45,4 @@ export class ConfigHandler
             process.exit(1);
         }
     }
-}
-
-interface Config
-{
-    owner: string;
-    prefix: string;
-    token: string;
 }
