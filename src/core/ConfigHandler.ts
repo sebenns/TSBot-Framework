@@ -8,7 +8,7 @@ export class ConfigHandler
     /**
      * Creates a configuration file in config directory with provided name and data.
      * @param {string} fileName - name of configuration file
-     * @param {any} json - data as JSON Object
+     * @param {T} json - data as JSON Object
      */
     public static createConfigFile<T>(fileName: string, json: T): void
     {
@@ -26,6 +26,7 @@ export class ConfigHandler
     /**
      * Loads the configuration file with provided fileName, throws Error if it does not exist.
      * @param {string} fileName - name of the file to check on.
+     * @returns {T} JSON object
      * @throws Error, if configuration file does not exist.
      */
     public static loadConfig<T>(fileName: string): T
