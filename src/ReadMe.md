@@ -1,1 +1,0 @@
-# Pride - Discord Botframework

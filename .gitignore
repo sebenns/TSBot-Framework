@@ -6,7 +6,7 @@ config.json
 # js files
 *.js
 *.js.map
-!.eslintrc.js
+!src/.eslintrc.js
 
 # dependencies
 /node_modules
