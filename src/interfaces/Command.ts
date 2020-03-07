@@ -3,8 +3,11 @@ import * as Discord from 'discord.js';
 
 export interface Command
 {
-    // Combined with suffix this will be your command
+    // Combined with prefix this will be your command
     command: string;
+
+    // Defines if command is switchable (optional, default = true)
+    switchable?: boolean;
 
     // Here you can create some permission checks
     permissions(client: PrideClient, msg: Discord.Message): boolean;
