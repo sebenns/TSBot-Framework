@@ -12,9 +12,8 @@ export class PrideClient
     }
 
     /**
-     * Tries to login the client through provided token by config file.
-     * If token file does not exist it will be created immediately.
-     * @param {string} token - provided token from token.json file
+     * Tries to login client with provided token.
+     * @param {string} token - Discord token
      */
     private loginClient(token: string): void
     {

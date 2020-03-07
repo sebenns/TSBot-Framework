@@ -21,4 +21,4 @@ CmdHandler.loadCmdList();
 
 const pride: PrideClient = new PrideClient(cfg.token);
 
-// EventHandling beneath
+

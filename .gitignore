@@ -2,6 +2,7 @@
 
 # config files
 config.json
+commands.json
 
 # js files
 *.js
