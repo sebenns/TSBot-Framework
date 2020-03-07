@@ -6,5 +6,5 @@ export interface Event
     eventName: string;
 
     // Execute code for this event with provided listener
-    execute(client: PrideClient, listener: (...args: any[]) => void)
+    execute(client: PrideClient, listener: (...args: any[]) => void);
 }
