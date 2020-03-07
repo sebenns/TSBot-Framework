@@ -5,6 +5,6 @@
     "sourceMap": false
   },
   "exclude": [
-    "node_modules"
+    "src/node_modules"
   ]
 }

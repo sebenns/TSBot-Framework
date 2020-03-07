@@ -2,10 +2,10 @@
   "name": "pride",
   "version": "1.0.0",
   "description": "Discord-Bot Framework, written in Typescript",
-  "main": "start.js",
+  "main": "src/start.js",
   "private": true,
   "scripts": {
-    "start": "tsc -p ./ && node start.js",
+    "start": "tsc -p ./ && node src/start.js",
     "compile": "tsc -p ./",
     "lint": "eslint . --ext .ts",
     "test": "mocha -r ts-node/register tests/**.spec.ts"

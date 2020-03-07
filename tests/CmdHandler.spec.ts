@@ -1,4 +1,4 @@
-import {CmdHandler} from "../core/CmdHandler";
+import {CmdHandler} from "../src/core/CmdHandler";
 import {expect} from 'chai';
 import 'mocha';
 

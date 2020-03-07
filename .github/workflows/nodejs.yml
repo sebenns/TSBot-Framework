@@ -31,13 +31,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
         
     - name: Install dependencies
-      working-directory: ./src
       run: npm ci
     
     - name: Linting files
-      working-directory: ./src
       run: npm run lint
  
     - name: Testing files
-      working-directory: ./src
       run: npm test

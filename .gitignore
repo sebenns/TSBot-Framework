@@ -7,7 +7,7 @@ commands.json
 # js files
 *.js
 *.js.map
-!src/.eslintrc.js
+!.eslintrc.js
 
 # dependencies
 /node_modules

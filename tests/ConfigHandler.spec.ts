@@ -1,4 +1,4 @@
-import {ConfigHandler} from "../core/ConfigHandler";
+import {ConfigHandler} from "../src/core/ConfigHandler";
 import * as path from "path";
 import * as fs from 'fs';
 import {expect} from 'chai';
@@ -10,7 +10,7 @@ describe('Configuration Handler', () =>
         test: boolean;
     }
 
-    const configPath = path.resolve(__dirname, '../config');
+    const configPath = path.resolve(__dirname, '../src/config');
     const testFile = `${configPath}/test.json`;
     const testJSON: TestJSON = {test: true};
 
