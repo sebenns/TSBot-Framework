@@ -6,6 +6,8 @@ export class HelpCmd implements Command
 {
     public command = 'help';
 
+    public switchable = false;
+
     public execute(client: PrideClient, msg: Discord.Message): void {
         console.log('execute');
     }

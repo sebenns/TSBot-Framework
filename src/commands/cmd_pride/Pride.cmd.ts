@@ -6,6 +6,8 @@ export class PrideCmd implements Command {
 
     public command = 'pride';
 
+    public switchable = false;
+
     permissions(client: PrideClient, msg: Discord.Message): boolean {
         return true;
     }
