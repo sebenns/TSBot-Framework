@@ -15,7 +15,6 @@ on:
 
 jobs:
   test:
-    name: Testing Pride integration & lint
     runs-on: ubuntu-latest
 
     strategy:
@@ -28,8 +27,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    
-    - name: npm install, test and lint
     - run: cd src
     - run: npm ci
     - run: npm run lint
