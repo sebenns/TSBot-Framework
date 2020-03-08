@@ -18,6 +18,7 @@ catch (error)
     process.exit(1);
 }
 
+CmdHandler.cmdPrefix = cfg.prefix;
 CmdHandler.loadCmdList();
 EventHandler.loadEvents();
 

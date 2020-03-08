@@ -5,6 +5,7 @@ import * as path from 'path';
 export class CmdHandler
 {
     private static cmdLoader = new FileLoader();
+    public static cmdPrefix: string;
 
     /**
      * Loads command configuration file and returns it
@@ -54,4 +55,5 @@ export class CmdHandler
 
         console.info('>> Finished loading commands.');
     }
+
 }
