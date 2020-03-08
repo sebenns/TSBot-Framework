@@ -4,7 +4,9 @@ import * as Discord from 'discord.js';
 
 export class PrideCmd implements Command {
 
-    public command = 'pride';
+    public command = ['pride', 'prideBot'];
+
+    public arguments = ['--reload(\\s\\w+)?', '--test'];
 
     public switchable = false;
 

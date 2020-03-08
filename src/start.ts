@@ -18,10 +18,28 @@ catch (error)
     process.exit(1);
 }
 
-CmdHandler.cmdPrefix = cfg.prefix;
-CmdHandler.loadCmdList();
-EventHandler.loadEvents();
+try
+{
+    CmdHandler.cmdPrefix = cfg.prefix;
+    CmdHandler.loadCmdList();
+}
+catch (error)
+{
+    console.error(`An Error has occurred during command loading: ${error}`);
+    process.exit(1);
+}
+
+try
+{
+    EventHandler.loadEvents();
+}
+catch (error)
+{
+    console.error(`An Error has occurred during event loading: ${error}`);
+}
 
 const pride: PrideClient = new PrideClient(cfg.token);
 
+// Initial event loading, all instances will be triggered.
+// Commands will be loaded afterwards.
 EventHandler.initEvents(pride);

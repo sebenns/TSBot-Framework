@@ -1,10 +1,15 @@
 import {PrideClient} from '../core/PrideClient';
 import * as Discord from 'discord.js';
+import {Token} from "../utils/Tokenizer";
 
+// How to build your own command :)
 export interface Command
 {
     // This will be your command, with possibly alternatives/aliases
-    command: string|string[];
+    command: string | string[];
+
+    // Define arguments for this command, you can use regular expressions
+    arguments?: string | string[];
 
     // Define here if command is switchable (optional, default = true)
     switchable?: boolean;
@@ -16,8 +21,20 @@ export interface Command
     usage?: string;
 
     // Here you can create some permission checks
-    permissions(client: PrideClient, msg: Discord.Message): boolean;
+    permissions(client: PrideClient, msg: Discord.Message, tokens: Token[]): boolean;
 
     // Pride will check on command syntax and afterwards just call this method.
-    execute(client: PrideClient, msg: Discord.Message): void;
+    execute(client: PrideClient, msg: Discord.Message, tokens: Token[]): void;
+}
+
+// Just some enums if you want to develop some abstract components
+export enum CommandTypes
+{
+    cmd        = 'command',
+    args       = 'arguments',
+    switchable = 'switchable',
+    descr      = 'description',
+    usage      = 'usage',
+    perms      = 'permissions',
+    exec       = 'execute'
 }

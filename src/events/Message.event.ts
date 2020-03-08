@@ -7,10 +7,19 @@ export class MessageEvent implements BotEvent
 {
     public eventName = 'message';
 
-    public execute(client: PrideClient, msg: Discord.Message): void {
-        if (msg.content.startsWith(CmdHandler.cmdPrefix) && msg.content.charCodeAt(CmdHandler.cmdPrefix.length) !== 32)
+    public execute(client: PrideClient, msg: Discord.Message): void
+    {
+        // Commands will only get executed, if they start with the prefix set in configuration file.
+        try
         {
-            return;
+            if (msg.content.startsWith(CmdHandler.cmdPrefix) && msg.content.charCodeAt(CmdHandler.cmdPrefix.length) !== 32)
+            {
+                CmdHandler.executeCmd(client, msg);
+            }
+        }
+        catch (error)
+        {
+            console.error(`An Error occurred during command execution: ${error}`);
         }
     }
 }
