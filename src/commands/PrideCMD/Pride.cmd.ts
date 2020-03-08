@@ -1,5 +1,5 @@
-import {Command} from "../../interfaces/Command";
-import {PrideClient} from "../../core/PrideClient";
+import {Command} from '../../interfaces/Command';
+import {PrideClient} from '../../core/PrideClient';
 import * as Discord from 'discord.js';
 
 export class PrideCmd implements Command {

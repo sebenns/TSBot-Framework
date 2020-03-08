@@ -1,10 +1,10 @@
-import {PrideClient} from "../core/PrideClient";
+import {PrideClient} from '../core/PrideClient';
 
-export interface Event
+export interface BotEvent
 {
     // Defines the event (and name), which have been triggered
     eventName: string;
 
     // Execute code for this event with provided listener
-    execute(client: PrideClient, listener: (...args: any[]) => void);
+    execute(client: PrideClient, ...args: any|any[]): void;
 }

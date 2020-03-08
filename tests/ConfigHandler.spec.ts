@@ -1,5 +1,5 @@
-import {ConfigHandler} from "../src/core/ConfigHandler";
-import * as path from "path";
+import {ConfigHandler} from '../src/core/ConfigHandler';
+import * as path from 'path';
 import * as fs from 'fs';
 import {expect} from 'chai';
 import 'mocha';

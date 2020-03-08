@@ -1,5 +1,5 @@
-import {Command} from "../interfaces/Command";
-import {PrideClient} from "../core/PrideClient";
+import {Command} from '../interfaces/Command';
+import {PrideClient} from '../core/PrideClient';
 import * as Discord from 'discord.js';
 
 export class HelpCmd implements Command
@@ -14,7 +14,6 @@ export class HelpCmd implements Command
 
     public permissions(client: PrideClient, msg: Discord.Message): boolean {
         console.log('permission');
-
         return true;
     }
 }

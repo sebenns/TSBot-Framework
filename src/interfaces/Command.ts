@@ -1,13 +1,19 @@
-import {PrideClient} from "../core/PrideClient";
+import {PrideClient} from '../core/PrideClient';
 import * as Discord from 'discord.js';
 
 export interface Command
 {
-    // Combined with prefix this will be your command
-    command: string;
+    // This will be your command, with possibly alternatives/aliases
+    command: string|string[];
 
-    // Defines if command is switchable (optional, default = true)
+    // Define here if command is switchable (optional, default = true)
     switchable?: boolean;
+
+    // (Optional) describe your command here
+    description?: string;
+
+    // (Optional) describe command usage here
+    usage?: string;
 
     // Here you can create some permission checks
     permissions(client: PrideClient, msg: Discord.Message): boolean;

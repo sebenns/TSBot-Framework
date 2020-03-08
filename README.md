@@ -2,6 +2,8 @@
 
 # Pride - Discord Botframework
 
+![Pride Framework](https://github.com/sebenns/Pride/workflows/Pride%20Framework/badge.svg)
+
 With the Pride Framework you can create your own bot. Use the already existing commands and add new ones with ease 
 by drag'n'drop. Pride takes over the basic functionality for you and allows you to concentrate more on your own masterpiece. 
 

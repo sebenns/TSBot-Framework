@@ -1,7 +1,8 @@
-import {PrideClient} from "./core/PrideClient";
-import {ConfigHandler} from "./core/ConfigHandler";
-import {CmdHandler} from "./core/CmdHandler";
-import {Config, ConfigExample} from "./interfaces/Config";
+import {PrideClient} from './core/PrideClient';
+import {ConfigHandler} from './core/ConfigHandler';
+import {CmdHandler} from './core/CmdHandler';
+import {Config, ConfigExample} from './interfaces/Config';
+import {EventHandler} from './core/EventHandler';
 
 let cfg: Config;
 
@@ -14,11 +15,12 @@ catch (error)
 {
     ConfigHandler.createConfigFile('config', ConfigExample);
     console.log('Configuration file has been created. Provide your Discord Token and restart.');
-    process.exit(0);
+    process.exit(1);
 }
 
 CmdHandler.loadCmdList();
+EventHandler.loadEvents();
 
 const pride: PrideClient = new PrideClient(cfg.token);
 
-
+EventHandler.initEvents(pride);

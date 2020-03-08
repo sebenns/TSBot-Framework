@@ -1,17 +1,19 @@
-import * as glob from 'glob';
+import {ConfigHandler} from './ConfigHandler';
+import {FileLoader} from '../utils/FileLoader';
 import * as path from 'path';
-import {ConfigHandler} from "./ConfigHandler";
 
 export class CmdHandler
 {
-    private static cmdList = {};
-    private static cmdConfig;
+    private static cmdLoader = new FileLoader();
 
-    // Loads command configuration file and stores it in attribute.
-    private static getCmdConfig(): void
+    /**
+     * Loads command configuration file and returns it
+     * @returns {any} config file {identifier: boolean};
+     */
+    private static loadConfig(): any
     {
         try {
-            this.cmdConfig = ConfigHandler.loadConfig<any>('commands');
+            return ConfigHandler.loadConfig<any>('commands');
         }
         catch (error)
         {
@@ -24,63 +26,31 @@ export class CmdHandler
      * Creates configuration file with provided config object.
      * @param config - object with command status
      */
-    private static setCmdConfig(config: any): void
+    private static createConfigFile(config: any): void
     {
         ConfigHandler.createConfigFile<any>('commands', config);
     }
 
     /**
-     * Getter method for commandList attribute
+     * Getter method for a list of commands
      * @returns {any} command list
      */
     public static getCmdList(): any
     {
-        return this.cmdList;
+        return this.cmdLoader.getFileList();
     }
 
     /**
      * Loads commands stored in commands directory.
      * Cache will be cleared on every method invoke.
-     * Commands will be stored in commandList attribute.
-     * Configuration file will be loaded and updated on every invoke.
+     * List of commands will be available in cmdLoader
      */
     public static loadCmdList(): void
     {
         console.info('>> Loading commands from directory...');
 
-        this.getCmdConfig();
-
-        const cmdFiles = glob.sync(`${path.resolve(__dirname, '../commands')}/**/*.cmd.js`);
-        const cmdList = {}, cmdConfig = {};
-
-        for (const cmdFile of cmdFiles)
-        {
-            // Clear cache and create instance of required file.
-            delete require.cache[require.resolve(cmdFile)];
-            // eslint-disable-next-line @typescript-eslint/no-var-requires
-            const instance = require(path.resolve(cmdFile));
-
-            // Check if instance file is not empty
-            if (!Object.keys(instance)[0] === null || !Object.keys(instance)[0] === undefined)
-            {
-                continue;
-            }
-
-            const identifier: string = Object.keys(instance)[0];
-
-            // Get configuration value of identifier, if it isn't set, set it to true.
-            cmdConfig[identifier] = this.cmdConfig && this.cmdConfig[identifier] !== undefined ? this.cmdConfig[identifier] : true;
-
-            // If configuration value of identifier is true, initialize command.
-            if (cmdConfig[identifier])
-            {
-                cmdList[identifier] = {fn: new (Object.values(instance)[0] as any)(), path: cmdFile};
-                console.info(`+ Command ${identifier} has been initialized.`);
-            }
-        }
-
-        this.setCmdConfig(cmdConfig);
-        this.cmdList = cmdList;
+        this.cmdLoader.loadFiles(path.resolve(process.cwd(), 'src/commands'), `/**/*.cmd.js`, this.loadConfig());
+        this.createConfigFile(this.cmdLoader.getCfgList());
 
         console.info('>> Finished loading commands.');
     }
