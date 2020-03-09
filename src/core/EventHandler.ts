@@ -31,10 +31,10 @@ export class EventHandler
     }
 
     /**
-     * Initializes all provided Discord events
+     * Registers all provided Discord events
      * @param {PrideClient} client, current instance of prideClient
      */
-    public static initEvents(client: PrideClient): void
+    public static registerEvents(client: PrideClient): void
     {
         // Get function values of current loaded eventList
         const instances: any = Object.values(this.eventLoader.getFileList());
@@ -46,5 +46,14 @@ export class EventHandler
             client.getClient().on(instance.fn['eventName'],
                 (...args) => { instance.fn['execute'](client, args.length > 1 ? args : args[0]) });
         }
+    }
+
+    /**
+     * Unregisters all provided Discord events
+     * @param {PrideClient} client, current instance of prideClient
+     */
+    public static unregisterEvents(client: PrideClient): void
+    {
+       client.getClient().removeAllListeners();
     }
 }

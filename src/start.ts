@@ -42,4 +42,4 @@ const pride: PrideClient = new PrideClient(cfg.token);
 
 // Initial event loading, all instances will be triggered.
 // Commands will be loaded afterwards.
-EventHandler.initEvents(pride);
+EventHandler.registerEvents(pride);

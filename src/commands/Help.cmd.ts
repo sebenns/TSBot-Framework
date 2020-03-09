@@ -7,15 +7,16 @@ export class HelpCmd implements Command
 {
     public command = 'help';
 
-    public arguments = '--all';
+    public arguments = '--page [0-9]+';
 
     public switchable = false;
 
     public execute(client: PrideClient, msg: Discord.Message, tokens: Token[]): void {
+        console.log('hello');
         return;
     }
 
     public permissions(client: PrideClient, msg: Discord.Message, tokens: Token[]): boolean {
-        return true;
+        return false;
     }
 }

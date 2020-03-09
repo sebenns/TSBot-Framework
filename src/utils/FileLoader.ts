@@ -3,7 +3,6 @@ import * as path from 'path';
 
 export class FileLoader
 {
-
     private fileList: any = {};
     private cfgList: any = {};
 
@@ -17,6 +16,22 @@ export class FileLoader
     public getFileList(): any
     {
         return this.fileList;
+    }
+
+    /**
+     * Getter method for an array list filled with paths
+     * @returns {string[]} pathList ['path', 'path', ... ]
+     */
+    public getPathList(): string[]
+    {
+        const pathList: string[] = [];
+
+        for (const file of this.fileList)
+        {
+            pathList.push(file.path);
+        }
+
+        return pathList;
     }
 
     /**
@@ -39,7 +54,6 @@ export class FileLoader
             // eslint-disable-next-line @typescript-eslint/no-var-requires
             const instance = require(path.resolve(file));
             const identifier: string = Object.keys(instance)[0];
-
             // Check if instance file is not empty
             if (!identifier === null || !identifier === undefined)
             {

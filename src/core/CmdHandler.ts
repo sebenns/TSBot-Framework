@@ -105,8 +105,10 @@ export class CmdHandler
                 // Generate a tokenList and invoke permissions() and execute()
                 const tokenList: Token[] = argExprs.length > 0 ? Tokenizer.filterTokens([CommandTypes.args], Tokenizer.tokenize(msg.content, argExprs)) : [];
 
-                instance.fn[CommandTypes.perms](client, msg, tokenList);
-                instance.fn[CommandTypes.exec](client, msg, tokenList);
+                if (instance.fn[CommandTypes.perms](client, msg, tokenList))
+                {
+                    instance.fn[CommandTypes.exec](client, msg, tokenList);
+                }
             }
         }
     }
