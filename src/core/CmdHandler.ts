@@ -31,7 +31,7 @@ export class CmdHandler
      * Creates configuration file with provided config object.
      * @param config - object with command status
      */
-    private static createConfigFile(config: any): void
+    public static createConfigFile(config: any): void
     {
         ConfigHandler.createConfigFile<any>('commands', config);
     }
