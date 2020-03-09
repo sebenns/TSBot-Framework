@@ -7,11 +7,5 @@ export interface BotEvent
     eventName: string;
 
     // Execute code for this event with provided listener
-    execute(client: PrideClient, ...args: any|any[]): void;
-}
-
-// Just some enums if you want to develop some abstract components
-export enum BotEventTypes {
-    event = 'eventName',
-    exec = 'execute',
+    execute(client: PrideClient, ...args: any | any[]): void;
 }

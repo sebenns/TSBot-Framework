@@ -4,7 +4,6 @@ import * as path from 'path';
 import {PrideClient} from './PrideClient';
 import * as Discord from 'discord.js';
 import {Token, TokenExpr, Tokenizer} from '../utils/Tokenizer';
-import {CommandTypes} from '../interfaces/Command';
 
 export class CmdHandler
 {
@@ -15,7 +14,7 @@ export class CmdHandler
      * Loads command configuration file and returns it
      * @returns {any} config file {identifier: boolean};
      */
-    private static loadConfig(): any
+    public static loadConfig(): any
     {
         try
         {
@@ -76,38 +75,38 @@ export class CmdHandler
         // Iterate through instances of commandFiles
         for (const instance of instances)
         {
-            const command: string | string[] = instance.fn[CommandTypes.cmd];
+            const command: string | string[] = instance.fn['command'];
 
             // Check if command does exist in instance
             if ((!Array.isArray(command) && command.toLocaleLowerCase() === execCmd) ||
                 (Array.isArray(command) && command.map(e => e.toLocaleLowerCase()).includes(execCmd)))
             {
                 const argExprs: TokenExpr[] = [];
-                const args: string | string[] = instance.fn[CommandTypes.args];
+                const args: string | string[] = instance.fn['arguments'];
 
                 // Check if arguments have been created and create a regExprList
                 if (args !== undefined)
                 {
                     if (!Array.isArray(args))
                     {
-                        argExprs.push({regExpr: new RegExp(args), type: CommandTypes.args});
+                        argExprs.push({regExpr: new RegExp(args), type: 'arguments'});
                     }
 
                     if (Array.isArray(args))
                     {
                         for (const arg of args)
                         {
-                            argExprs.push({regExpr: new RegExp(arg), type: CommandTypes.args});
+                            argExprs.push({regExpr: new RegExp(arg), type: 'arguments'});
                         }
                     }
                 }
 
                 // Generate a tokenList and invoke permissions() and execute()
-                const tokenList: Token[] = argExprs.length > 0 ? Tokenizer.filterTokens([CommandTypes.args], Tokenizer.tokenize(msg.content, argExprs)) : [];
+                const tokenList: Token[] = argExprs.length > 0 ? Tokenizer.filterTokens(['arguments'], Tokenizer.tokenize(msg.content, argExprs)) : [];
 
-                if (instance.fn[CommandTypes.perms](client, msg, tokenList))
+                if (instance.fn['permissions'](client, msg, tokenList))
                 {
-                    instance.fn[CommandTypes.exec](client, msg, tokenList);
+                    instance.fn['execute'](client, msg, tokenList);
                 }
             }
         }

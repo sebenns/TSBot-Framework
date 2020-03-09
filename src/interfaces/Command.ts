@@ -26,15 +26,3 @@ export interface Command
     // Pride will check on command syntax and afterwards just call this method.
     execute(client: PrideClient, msg: Discord.Message, tokens: Token[]): void;
 }
-
-// Just some enums if you want to develop some abstract components
-export enum CommandTypes
-{
-    cmd        = 'command',
-    args       = 'arguments',
-    switchable = 'switchable',
-    descr      = 'description',
-    usage      = 'usage',
-    perms      = 'permissions',
-    exec       = 'execute'
-}
