@@ -4,6 +4,9 @@
 config.json
 commands.json
 
+# ignore docs due to autogen
+/docs
+
 # js files
 *.js
 *.js.map

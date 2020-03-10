@@ -1,0 +1,14 @@
+{
+  "inputFiles" : ["./src"],
+  "out": "docs",
+  "mode" : "file",
+  "name": "Pride Framework",
+  "excludePrivate" : true,
+  "excludeExternals": true,
+  "excludeNotExported": true,
+  "exclude" : [
+    "**/events/**/*",
+    "**/commands/**/*"
+  ],
+  "ignoreCompilerErrors": true
+}

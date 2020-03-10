@@ -4,6 +4,7 @@ import {CmdHandler} from './core/CmdHandler';
 import {Config, ConfigExample} from './interfaces/Config';
 import {EventHandler} from './core/EventHandler';
 
+/** @ignore Current bot configuration */
 let cfg: Config;
 
 // Loads the configuration file, if it does not exist, it will be created.
@@ -38,6 +39,7 @@ catch (error)
     console.error(`An Error has occurred during event loading: ${error}`);
 }
 
+/** Current instance of PrideClient */
 const pride: PrideClient = new PrideClient(cfg.token);
 
 // Initial event loading, all instances will be triggered.

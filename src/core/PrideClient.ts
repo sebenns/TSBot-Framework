@@ -1,5 +1,9 @@
 import * as Discord from 'discord.js';
 
+/**
+ * Wrapper for Discord.Client
+ * @category Core
+ */
 export class PrideClient
 {
 
@@ -12,8 +16,8 @@ export class PrideClient
     }
 
     /**
-     * Tries to login client with provided token.
-     * @param {string} token - Discord token
+     * Tries to login with provided token.
+     * @param {string} token Token provided by Discord, which can be stored in configuration file.
      */
     private loginClient(token: string): void
     {
@@ -25,8 +29,8 @@ export class PrideClient
     }
 
     /**
-     * Getter for created Discord.Client instance
-     * @returns {Discord.Client}
+     * Returns current instance of Discord.Client
+     * @returns {Discord.Client} Current instance of Discord.Client
      */
     public getClient(): Discord.Client
     {

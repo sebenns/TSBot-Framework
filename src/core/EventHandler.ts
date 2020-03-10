@@ -1,15 +1,39 @@
 import {FileLoader} from '../utils/FileLoader';
 import * as path from 'path';
 import {PrideClient} from './PrideClient';
+import {TSCompiler} from "../utils/TSCompiler";
+import * as glob from 'glob';
+import * as ts from 'typescript';
 
+/**
+ * Event Handler with the following key features:
+ *  <ul>
+ *      <li>Return eventList, which has been loaded before.
+ *      <li>Re/load event instances from event directory.
+ * </ul>
+ * @category Core
+ */
 export class EventHandler
 {
 
     private static eventLoader = new FileLoader();
 
     /**
-     * Getter method for a list of events
-     * @returns {any} event list
+     * Returns current loaded list of events containing an instance of class and filePath. <br />
+     * ```json
+     * {
+     *     instanceEvent: {
+     *         fn : [instanceEvent],
+     *         path : "filePath"
+     *     },
+     *     MessageEvent : {
+     *         fn: [MessageEvent],
+     *         path: "filePath"
+     *     },
+     *     ...
+     * }
+     * ```
+     * @returns {json} Object {instanceEvent : {fn: [instanceEvent], path: string}}
      */
     public static getEventList(): void
     {
@@ -17,13 +41,18 @@ export class EventHandler
     }
 
     /**
-     * Loads events stored in events directory.
-     * Cache will be cleared on every method invoke.
-     * List of events will be available in eventLoader
+     *  Re/loads all existing events in event directory as well as their modules.<br />
+     *  All files listed in events directory will be recompiled by [[TSCompiler]]. Already cached files
+     *  by require will be removed. Afterwards the [[FileLoader]] will reload all `*.event.js` instances as well
+     *  as their imported modules.
      */
     public static loadEvents(): void
     {
         console.info('>> Loading events from directory...');
+
+        const tsFiles: string[] = glob.sync(`${path.resolve(process.cwd(), 'src/events')}/**/*.ts`);
+        TSCompiler.compile(tsFiles, {target: ts.ScriptTarget.ES5, module: ts.ModuleKind.CommonJS});
+        FileLoader.clearFileCache(tsFiles.map(e => `${e.substr(0, e.lastIndexOf('.'))}.js`));
 
         this.eventLoader.loadFiles(path.resolve(process.cwd(), 'src/events'), `/**/*.event.js`);
 
@@ -31,8 +60,8 @@ export class EventHandler
     }
 
     /**
-     * Registers all provided Discord events
-     * @param {PrideClient} client, current instance of prideClient
+     * Registers all events which have been loaded and stored in current eventList.
+     * @param {PrideClient} client Current instance of PrideClient
      */
     public static registerEvents(client: PrideClient): void
     {
@@ -49,8 +78,8 @@ export class EventHandler
     }
 
     /**
-     * Unregisters all provided Discord events
-     * @param {PrideClient} client, current instance of prideClient
+     * Unregisters and removes all existent listeners.
+     * @param {PrideClient} client Current instance of PrideClient
      */
     public static unregisterEvents(client: PrideClient): void
     {

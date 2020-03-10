@@ -3,15 +3,7 @@
 
 name: Prideflow NodeJS
 
-on:
-  push:
-    branches:
-      - master
-      - dev
-  pull_request:
-    branches: 
-      - master
-      - dev
+on: [push]
 
 jobs:
   test:
@@ -22,7 +14,7 @@ jobs:
         node-version: [10.x, 12.x]
 
     steps:
-    - name: Checkout
+    - name: Checkout 🛎️
       uses: actions/checkout@v2
       
     - name: Use Node.js ${{ matrix.node-version }}
@@ -30,11 +22,11 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         
-    - name: Install dependencies
+    - name: Dependencies 📦
       run: npm ci
     
-    - name: Linting files
+    - name: Linting 🔍
       run: npm run lint
  
-    - name: Testing files
+    - name: Testing 🔨
       run: npm test

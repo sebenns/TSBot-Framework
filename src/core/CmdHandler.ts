@@ -4,15 +4,38 @@ import * as path from 'path';
 import {PrideClient} from './PrideClient';
 import * as Discord from 'discord.js';
 import {Token, TokenExpr, Tokenizer} from '../utils/Tokenizer';
+import {TSCompiler} from "../utils/TSCompiler";
+import * as glob from 'glob';
+import * as ts from 'typescript';
 
+/**
+ * Command Handler with the following key features:
+ *  <ul>
+ *      <li>Re/load and re/create configuration file for commands (`config/commands.json`).
+ *      <li>Return commandList, which has been loaded before.
+ *      <li>Re/load command instances from command directory.
+ * </ul>
+ * @category Core
+ */
 export class CmdHandler
 {
     private static cmdLoader = new FileLoader();
+
+    /** Contains current prefix for commands. */
     public static cmdPrefix: string;
 
     /**
-     * Loads command configuration file and returns it
-     * @returns {any} config file {identifier: boolean};
+     * Loads current command configuration file from config directory and returns it.
+     * Configuration file contains key value pairs, where a key is an instance and the value defines whether the command is active.
+     * ```json
+     * {
+     *     instanceCmd : boolean,
+     *     HelpCmd : true,
+     *     PrideCmd : true,
+     *     ...
+     * }
+     * ```
+     * @returns {json} Object {instanceCmd: boolean, instanceCmd: boolean, ...}
      */
     public static loadConfig(): any
     {
@@ -28,7 +51,15 @@ export class CmdHandler
     }
 
     /**
-     * Creates configuration file with provided config object.
+     * Creates a configuration file in config directory with provided configuration.
+     * Configuration provided as json must look like:
+     * ```json
+     * {
+     *     instanceCmd: boolean,
+     *     instanceCmd: boolean,
+     *     ...
+     * }
+     * ```
      * @param config - object with command status
      */
     public static createConfigFile(config: any): void
@@ -37,8 +68,22 @@ export class CmdHandler
     }
 
     /**
-     * Getter method for a list of commands
-     * @returns {any} command list
+     * Returns current loaded list of commands containing an instance of class and filePath. <br />
+     * Disabled commands won't be listed here.
+     * ```json
+     * {
+     *     instanceCmd: {
+     *         fn : [instanceCmd],
+     *         path : "filePath"
+     *     },
+     *     HelpCmd : {
+     *         fn: [HelpCmd],
+     *         path: "filePath"
+     *     },
+     *     ...
+     * }
+     * ```
+     * @returns {json} Object {instanceCmd : {fn: [instanceCmd], path: string}}
      */
     public static getCmdList(): any
     {
@@ -46,14 +91,21 @@ export class CmdHandler
     }
 
     /**
-     * Loads commands stored in commands directory.
-     * Cache will be cleared on every method invoke.
-     * List of commands will be available in cmdLoader
+     *  Re/loads all existing commands in command directory as well as their modules.<br />
+     *  All files listed in commands directory will be recompiled by [[TSCompiler]]. Already cached files
+     *  by require will be removed. Afterwards the [[FileLoader]] will reload all `*.cmd.js` instances as well
+     *  as their imported modules. Configuration file will take impact on loaded commands.
      */
     public static loadCmdList(): void
     {
         console.info('>> Loading commands from directory...');
 
+        // Get full commands directory and re/compile typescript files, afterwards clear javascript require cache
+        const tsFiles: string[] = glob.sync(`${path.resolve(process.cwd(), 'src/commands')}/**/*.ts`);
+        TSCompiler.compile(tsFiles, {target: ts.ScriptTarget.ES5, module: ts.ModuleKind.CommonJS});
+        FileLoader.clearFileCache(tsFiles.map(e => `${e.substr(0, e.lastIndexOf('.'))}.js`));
+
+        // Load command instances and initialize them
         this.cmdLoader.loadFiles(path.resolve(process.cwd(), 'src/commands'), `/**/*.cmd.js`, this.loadConfig());
         this.createConfigFile(this.cmdLoader.getCfgList());
 
@@ -61,9 +113,10 @@ export class CmdHandler
     }
 
     /**
-     * Executes the provided command via message, checks if it exists and executes it with a generated tokenList.
-     * @param {PrideClient} client - PrideClient
-     * @param {Discord.Message} msg - Discord message with provided command
+     * Execute command events if provided message.content starts with cmdPrefix and the command itself.
+     * If arguments exist in an instance of a command, the message will be tokenized and arguments will get filtered.
+     * @param {PrideClient} client Current instance of PrideClient
+     * @param {Discord.Message} msg Discord Message object
      */
     public static executeCmd(client: PrideClient, msg: Discord.Message): void
     {

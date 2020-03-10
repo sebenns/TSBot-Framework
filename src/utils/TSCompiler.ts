@@ -1,5 +1,9 @@
 import * as ts from 'typescript';
 
+/**
+ * TSCompiler is a programmatically way of compiling typescript files at runtime
+ * @category Utility
+ */
 export class TSCompiler
 {
     /**

@@ -8,7 +8,8 @@
     "start": "tsc -p ./ && node src/start.js",
     "compile": "tsc -p ./",
     "lint": "eslint . --ext .ts",
-    "test": "mocha -r ts-node/register tests/**.spec.ts"
+    "test": "mocha -r ts-node/register tests/**.spec.ts",
+    "docs": "typedoc --options tsdoc.json"
   },
   "repository": {
     "type": "git",
@@ -39,6 +40,7 @@
     "chai": "^4.2.0",
     "eslint": "^6.8.0",
     "mocha": "^7.1.0",
-    "ts-node": "^8.6.2"
+    "ts-node": "^8.6.2",
+    "typedoc": "^0.16.11"
   }
 }

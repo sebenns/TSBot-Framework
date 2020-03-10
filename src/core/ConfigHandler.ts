@@ -1,14 +1,22 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
+/**
+ * Config Handler with the following key features:
+ *  <ul>
+ *      <li>Load configuration files by fileName
+ *      <li>Create configuration files with provided fileName and JSON Object
+ * </ul>
+ * @category Core
+ */
 export class ConfigHandler
 {
     private static readonly configPath = path.resolve(process.cwd(), 'src/config');
 
     /**
-     * Creates a configuration file in config directory with provided name and data.
-     * @param {string} fileName - name of configuration file
-     * @param {T} json - data as JSON Object
+     * Creates a configuration file with provided config of a generic type
+     * @param {string} fileName Defines the configuration fileName
+     * @param {T} json Data as JSON object, which will be stored in configuration file.
      */
     public static createConfigFile<T>(fileName: string, json: T): void
     {
@@ -16,9 +24,9 @@ export class ConfigHandler
     }
 
     /**
-     * Loads the configuration file with provided fileName, throws Error if it does not exist.
-     * @param {string} fileName - name of the file to check on.
-     * @returns {T} JSON object
+     * Loads a configuration file by provided fileName, parses its content as JSON and returns it.
+     * @param {string} fileName Defines the configuration fileName
+     * @returns {T} JSON Object
      */
     public static loadConfig<T>(fileName: string): T
     {

@@ -1,18 +1,46 @@
 import * as glob from 'glob';
 import * as path from 'path';
 
+/**
+ * FileLoader loads and caches files by filePattern (mostly javascript due to require implementation).
+ * @category Utility
+ */
 export class FileLoader
 {
     private fileList: any = {};
     private cfgList: any = {};
 
-    // Returns configuration list of loader.
+    /**
+     * Getter method for configuration list filled with key, value pairs
+     *
+     * ```json
+     * {
+     *     instance: boolean,
+     *     instance: boolean,
+     *     instance: boolean,
+     *     ...
+     * }
+     * ```
+     * @returns {any} JSON Object
+     */
     public getCfgList(): any
     {
         return this.cfgList;
     }
 
-    // Returns file list of loader.
+    /**
+     * Getter method for an instanceObject filled with instances, their definitions and paths
+     * ```json
+     * {
+     *     instance {
+     *         fn: [instance],
+     *         path: "filePath"
+     *     },
+     *     ...
+     * }
+     * ```
+     * @returns {any} JSON Object
+     */
     public getFileList(): any
     {
         return this.fileList;
@@ -73,5 +101,17 @@ export class FileLoader
 
         this.cfgList = cfgList;
         this.fileList = fileList;
+    }
+
+    /**
+     * Utility method for clearing require cache for provided fileList
+     * @param {string[]} fileList Provide a list of files in a string array.
+     */
+    public static clearFileCache(fileList: string[]): void
+    {
+        for (const file of fileList)
+        {
+            delete require.cache[path.resolve(file)];
+        }
     }
 }
