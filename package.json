@@ -8,7 +8,7 @@
     "start": "tsc -p ./ && node src/start.js",
     "compile": "tsc -p ./",
     "lint": "eslint . --ext .ts",
-    "test": "mocha -r ts-node/register tests/**.spec.ts",
+    "test": "mocha -r ts-node/register tests/**.spec.ts -s 2000 -timeout 10000",
     "docs": "typedoc --options tsdoc.json"
   },
   "repository": {
