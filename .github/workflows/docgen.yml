@@ -36,3 +36,4 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           remote_url: https://github.com/sebenns/Pride
           target_branch: master
+          target_directory: docs
