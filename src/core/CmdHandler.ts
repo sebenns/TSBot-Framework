@@ -136,7 +136,7 @@ export class CmdHandler
 
             // Check if command does exist in instance
             if ((!Array.isArray(command) && command.toLocaleLowerCase() === execCmd) ||
-                (Array.isArray(command) && command.map(e => e.toLocaleLowerCase()).includes(execCmd)))
+                (Array.isArray(command) && command.some(e => e.toLocaleLowerCase() === execCmd)))
             {
                 const argExprs: TokenExpr[] = [];
                 const args: string | string[] = instance.fn['arguments'];
