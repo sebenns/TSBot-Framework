@@ -127,7 +127,7 @@ export class CmdHandler
         // Get function values of current loaded command list
         const instances: any = Object.values(this.cmdLoader.getFileList());
         // Get current executed command and remove cmdPrefix from the beginning
-        const execCmd: string = msg.content.split(' ')[0].substring(this.cmdPrefix.length).toLocaleLowerCase();
+        const execCmd: string = msg.content.substring(this.cmdPrefix.length).toLocaleLowerCase().split(' ')[0];
 
         // Iterate through instances of commandFiles
         for (const instance of instances)
