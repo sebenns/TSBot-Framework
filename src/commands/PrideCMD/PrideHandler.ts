@@ -2,6 +2,7 @@ import {PrideClient} from '../../core/PrideClient';
 import {CmdHandler} from '../../core/CmdHandler';
 import {EventHandler} from '../../core/EventHandler';
 import * as Discord from 'discord.js';
+import {MessageEmbed} from 'discord.js';
 
 export class PrideHandler
 {
@@ -9,12 +10,12 @@ export class PrideHandler
     public static reload(token: string, client: PrideClient, msg: Discord.Message): void
     {
         const arg: string = token.split(/\s/)[1];
+        let response = '';
 
         if (!arg || arg.match('cmds|command(s)?|cmd'))
         {
             CmdHandler.loadCmdList();
-
-            msg.channel.send(':information_source: _   _ Your commands have been successfully reloaded.');
+            response += 'Your commands have been successfully reloaded.\n';
         }
 
         if (!arg || arg.match('event(s)?'))
@@ -22,9 +23,11 @@ export class PrideHandler
             EventHandler.unregisterEvents(client);
             EventHandler.loadEvents();
             EventHandler.registerEvents(client);
-
-            msg.channel.send(':information_source: _   _ Your events and commands have been successfully reloaded.');
+            response += 'Your events have been successfully reloaded.\n';
         }
+
+        msg.channel.send(new MessageEmbed().setColor(5871377)
+            .setAuthor(`${String.fromCodePoint(0x2705)} Success!`).setDescription(response));
     }
 
     // Toggles en/disable status of provided command in arguments via CommandHandler
@@ -49,7 +52,10 @@ export class PrideHandler
                     // Store changed configuration file, reload command list and display change message
                     CmdHandler.createConfigFile(cfgFile);
                     CmdHandler.loadCmdList();
-                    msg.channel.send(`:${activate ? 'green' : 'red'}_circle: _  _ The command \`${CmdHandler.cmdPrefix}${arg}\` was successfully ${activate ? 'enabled' : 'disabled'}.`);
+
+                    msg.channel.send(new MessageEmbed().setColor(activate ? 5871377 : 12386326)
+                        .setAuthor(activate ? `${String.fromCodePoint(0x1F7E2)} Enabled ${arg}!` : `${String.fromCodePoint(0x1F534)} Disabled ${arg}!`)
+                        .setDescription(`The command ${CmdHandler.cmdPrefix}${arg} was successfully ${activate ? 'enabled' : 'disabled'}.`));
 
                     break;
                 }

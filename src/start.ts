@@ -4,6 +4,12 @@ import {CmdHandler} from './core/CmdHandler';
 import {Config, ConfigExample} from './interfaces/Config';
 import {EventHandler} from './core/EventHandler';
 
+if (Number(process.versions.node.substring(0, process.versions.node.indexOf('.'))) < 12)
+{
+    throw Error(`NodeJS Version Check: Required Node version >= 12, you are currently running >>${process.version}<<
+    As a result, some functions of Pride will not run properly. Please update your Node version.`);
+}
+
 /** @ignore Current bot configuration */
 let cfg: Config;
 

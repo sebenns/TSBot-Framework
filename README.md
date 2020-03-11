@@ -37,6 +37,7 @@ As an exemplary 'leisure developer' I would like to point out that there is a co
 
 #### Requirements
 
+**Node.js 12.0.0 or newer is required.**  
 To use Pride locally or externally on a server you need [NodeJS](https://nodejs.org/).  
 Get the project, install all necessary dependencies with `npm install` and start Pride with `npm start`.
 
