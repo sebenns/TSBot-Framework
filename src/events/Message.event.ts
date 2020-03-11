@@ -19,7 +19,7 @@ export class MessageEvent implements BotEvent
         }
         catch (error)
         {
-            console.error(`An Error occurred during command execution: ${error}`);
+            console.error(`![CmdLoading] An Error occurred during command execution: ${error}`);
         }
     }
 }

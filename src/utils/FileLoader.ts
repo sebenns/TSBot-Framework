@@ -66,11 +66,11 @@ export class FileLoader
      * Loads files in provided directory with provided filePattern, creates a configuration list and stores
      * a list of files as well as the configuration list in private attributes, which can be obtained by getter.
      * It is possible to provide a configuration, which will avoid loading unwanted files.
-     * @param {string} dir - directory with files, which will be loaded
-     * @param {string} filePattern - pattern for files, which should match
-     * @param cfg - configuration file with {identifier: boolean}
+     * @param {string} dir Directory with files, which will be loaded
+     * @param {string} filePattern Pattern for files, which should match
+     * @param {any} cfg Configuration file with {identifier: boolean}
      */
-    public loadFiles(dir: string, filePattern: string, cfg?: any): void
+    public requireFiles(dir: string, filePattern: string, cfg?: any): void
     {
         const files = glob.sync(`${dir}${filePattern}`);
         const fileList = {}, cfgList = {};
@@ -107,7 +107,7 @@ export class FileLoader
      * Utility method for clearing require cache for provided fileList
      * @param {string[]} fileList Provide a list of files in a string array.
      */
-    public static clearFileCache(fileList: string[]): void
+    public static clearRequireCache(fileList: string[]): void
     {
         for (const file of fileList)
         {

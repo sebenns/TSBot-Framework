@@ -6,7 +6,7 @@ import {EventHandler} from './core/EventHandler';
 
 if (Number(process.versions.node.substring(0, process.versions.node.indexOf('.'))) < 12)
 {
-    console.error(`NodeJS Version Check: Required Node version >= 12, you are currently running >>${process.version}<<
+    console.error(`![NodeJS Version Check] Required Node version >= 12, you are currently running >>${process.version}<<
     As a result, some functions of Pride will not run properly. Please update your Node version.`);
     process.exit(1);
 }
@@ -22,7 +22,7 @@ try
 catch (error)
 {
     ConfigHandler.createConfigFile('config', ConfigExample);
-    console.log('Configuration file has been created. Provide your Discord Token and restart.');
+    console.log('![Configuration] Configuration file has been created. Provide your Discord Token and restart.');
     process.exit(1);
 }
 
@@ -33,7 +33,7 @@ try
 }
 catch (error)
 {
-    console.error(`An Error has occurred during command loading: ${error}`);
+    console.error(`![CmdInit] An Error has occurred during command loading: ${error}`);
     process.exit(1);
 }
 
@@ -43,7 +43,7 @@ try
 }
 catch (error)
 {
-    console.error(`An Error has occurred during event loading: ${error}`);
+    console.error(`![EventLoading] An Error has occurred during event loading: ${error}`);
 }
 
 /** Current instance of PrideClient */

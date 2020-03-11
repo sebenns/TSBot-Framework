@@ -45,7 +45,7 @@ export class CmdHandler
         }
         catch (error)
         {
-            console.info('Configuration file for "Commands" does not exist.');
+            console.info('![CmdHandler] Configuration file for "Commands" does not exist.');
             return;
         }
     }
@@ -99,21 +99,21 @@ export class CmdHandler
      */
     public static loadCmdList(recompile = false): void
     {
-        console.info('>> Loading commands from directory...');
+        console.info('[ >> Loading commands from directory... ]');
 
         if (recompile)
         {
             // Get full commands directory and re/compile typescript files, afterwards clear javascript require cache
             const tsFiles: string[] = glob.sync(`${path.resolve(process.cwd(), 'src/commands')}/**/*.ts`);
             TSCompiler.compile(tsFiles, {target: ts.ScriptTarget.ES5, module: ts.ModuleKind.CommonJS});
-            FileLoader.clearFileCache(tsFiles.map(e => `${e.substr(0, e.lastIndexOf('.'))}.js`));
+            FileLoader.clearRequireCache(tsFiles.map(e => `${e.substr(0, e.lastIndexOf('.'))}.js`));
         }
 
         // Load command instances and initialize them
-        this.cmdLoader.loadFiles(path.resolve(process.cwd(), 'src/commands'), `/**/*.cmd.js`, this.loadConfig());
+        this.cmdLoader.requireFiles(path.resolve(process.cwd(), 'src/commands'), `/**/*.cmd.js`, this.loadConfig());
         this.createConfigFile(this.cmdLoader.getCfgList());
 
-        console.info('>> Finished loading commands.');
+        console.info('[ >> Finished loading commands. ]');
     }
 
     /**

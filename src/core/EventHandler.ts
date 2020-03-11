@@ -49,18 +49,18 @@ export class EventHandler
      */
     public static loadEvents(recompile = false): void
     {
-        console.info('>> Loading events from directory...');
+        console.info('[ >> Loading events from directory... ]');
 
         if (recompile)
         {
             const tsFiles: string[] = glob.sync(`${path.resolve(process.cwd(), 'src/events')}/**/*.ts`);
             TSCompiler.compile(tsFiles, {target: ts.ScriptTarget.ES5, module: ts.ModuleKind.CommonJS});
-            FileLoader.clearFileCache(tsFiles.map(e => `${e.substr(0, e.lastIndexOf('.'))}.js`));
+            FileLoader.clearRequireCache(tsFiles.map(e => `${e.substr(0, e.lastIndexOf('.'))}.js`));
         }
 
-        this.eventLoader.loadFiles(path.resolve(process.cwd(), 'src/events'), `/**/*.event.js`);
+        this.eventLoader.requireFiles(path.resolve(process.cwd(), 'src/events'), `/**/*.event.js`);
 
-        console.info('>> Finished loading events.');
+        console.info('[ >> Finished loading events. ]');
     }
 
     /**
