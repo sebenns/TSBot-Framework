@@ -18,7 +18,7 @@ export class ConfigHandler
      * @param {string} fileName Defines the configuration fileName
      * @param {T} json Data as JSON object, which will be stored in configuration file.
      */
-    public static createConfigFile<T>(fileName: string, json: T): void
+    public static createConfig<T>(fileName: string, json: T): void
     {
         fs.writeFileSync(path.resolve(this.configPath, `${fileName}.json`), JSON.stringify(json, null, 4));
     }

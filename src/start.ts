@@ -21,7 +21,7 @@ try
 }
 catch (error)
 {
-    ConfigHandler.createConfigFile('config', ConfigExample);
+    ConfigHandler.createConfig('config', ConfigExample);
     console.log('![Configuration] Configuration file has been created. Provide your Discord Token and restart.');
     process.exit(1);
 }

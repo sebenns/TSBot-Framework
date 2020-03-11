@@ -24,7 +24,7 @@ describe('Configuration Handler', () =>
 
     it('should create a configuration file', () =>
     {
-        ConfigHandler.createConfigFile<TestJSON>('test', testJSON);
+        ConfigHandler.createConfig<TestJSON>('test', testJSON);
         expect(fs.existsSync(testFile)).to.equal(true);
     });
 

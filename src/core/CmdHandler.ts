@@ -62,9 +62,9 @@ export class CmdHandler
      * ```
      * @param config - object with command status
      */
-    public static createConfigFile(config: any): void
+    public static createConfig(config: any): void
     {
-        ConfigHandler.createConfigFile<any>('commands', config);
+        ConfigHandler.createConfig<any>('commands', config);
     }
 
     /**
@@ -111,7 +111,7 @@ export class CmdHandler
 
         // Load command instances and initialize them
         this.cmdLoader.requireFiles(path.resolve(process.cwd(), 'src/commands'), `/**/*.cmd.js`, this.loadConfig());
-        this.createConfigFile(this.cmdLoader.getCfgList());
+        this.createConfig(this.cmdLoader.getCfgList());
 
         console.info('[ >> Finished loading commands. ]');
     }

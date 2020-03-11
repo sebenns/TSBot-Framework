@@ -50,7 +50,7 @@ export class PrideHandler
                     cfgFile[instance] = activate;
 
                     // Store changed configuration file, reload command list and display change message
-                    CmdHandler.createConfigFile(cfgFile);
+                    CmdHandler.createConfig(cfgFile);
                     CmdHandler.loadCmdList();
 
                     msg.channel.send(new MessageEmbed().setColor(activate ? 5871377 : 12386326)

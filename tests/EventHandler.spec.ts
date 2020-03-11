@@ -8,5 +8,5 @@ describe('Event Handler', () =>
     {
         EventHandler.loadEvents();
         expect(EventHandler.getEventList()).to.not.equal(undefined);
-    })
+    });
 });

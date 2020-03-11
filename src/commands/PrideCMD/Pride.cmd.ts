@@ -12,9 +12,9 @@ export class PrideCmd implements Command
     ];
 
     public arguments = [
-        `--reload(\\s(cmds|command(s)?|cmd|event(s)?))?`,
-        `(--disable|--dis)(\\s\\w+)`,
-        `(--enable|--en)(\\s\\w+)`
+        `reload(\\s(cmds|command(s)?|cmd|event(s)?))?`,
+        `(disable|dis)(\\s\\w+)`,
+        `(enable|en)(\\s\\w+)`
     ];
 
     public switchable = false;
@@ -30,11 +30,11 @@ export class PrideCmd implements Command
         {
             for (const argument of tokens)
             {
-                if (argument.token.startsWith('--reload'))
+                if (argument.token.startsWith('reload'))
                     return PrideHandler.reload(argument.token, client, msg);
-                if (argument.token.startsWith('--disable') || argument.token.startsWith('--dis'))
+                if (argument.token.startsWith('disable') || argument.token.startsWith('dis'))
                     return PrideHandler.toggle(argument.token, false, msg);
-                if (argument.token.startsWith('--enable') || argument.token.startsWith('--en'))
+                if (argument.token.startsWith('enable') || argument.token.startsWith('en'))
                     return PrideHandler.toggle(argument.token, true, msg);
             }
         }
