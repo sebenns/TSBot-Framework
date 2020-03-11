@@ -6,8 +6,9 @@ import {EventHandler} from './core/EventHandler';
 
 if (Number(process.versions.node.substring(0, process.versions.node.indexOf('.'))) < 12)
 {
-    throw Error(`NodeJS Version Check: Required Node version >= 12, you are currently running >>${process.version}<<
+    console.error(`NodeJS Version Check: Required Node version >= 12, you are currently running >>${process.version}<<
     As a result, some functions of Pride will not run properly. Please update your Node version.`);
+    process.exit(1);
 }
 
 /** @ignore Current bot configuration */

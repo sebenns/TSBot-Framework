@@ -95,15 +95,19 @@ export class CmdHandler
      *  All files listed in commands directory will be recompiled by [[TSCompiler]]. Already cached files
      *  by require will be removed. Afterwards the [[FileLoader]] will reload all `*.cmd.js` instances as well
      *  as their imported modules. Configuration file will take impact on loaded commands.
+     *  @param {boolean} recompile Defines if all files in commands directory should get recompiled
      */
-    public static loadCmdList(): void
+    public static loadCmdList(recompile = false): void
     {
         console.info('>> Loading commands from directory...');
 
-        // Get full commands directory and re/compile typescript files, afterwards clear javascript require cache
-        const tsFiles: string[] = glob.sync(`${path.resolve(process.cwd(), 'src/commands')}/**/*.ts`);
-        TSCompiler.compile(tsFiles, {target: ts.ScriptTarget.ES5, module: ts.ModuleKind.CommonJS});
-        FileLoader.clearFileCache(tsFiles.map(e => `${e.substr(0, e.lastIndexOf('.'))}.js`));
+        if (recompile)
+        {
+            // Get full commands directory and re/compile typescript files, afterwards clear javascript require cache
+            const tsFiles: string[] = glob.sync(`${path.resolve(process.cwd(), 'src/commands')}/**/*.ts`);
+            TSCompiler.compile(tsFiles, {target: ts.ScriptTarget.ES5, module: ts.ModuleKind.CommonJS});
+            FileLoader.clearFileCache(tsFiles.map(e => `${e.substr(0, e.lastIndexOf('.'))}.js`));
+        }
 
         // Load command instances and initialize them
         this.cmdLoader.loadFiles(path.resolve(process.cwd(), 'src/commands'), `/**/*.cmd.js`, this.loadConfig());

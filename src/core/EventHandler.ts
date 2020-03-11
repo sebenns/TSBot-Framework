@@ -45,14 +45,18 @@ export class EventHandler
      *  All files listed in events directory will be recompiled by [[TSCompiler]]. Already cached files
      *  by require will be removed. Afterwards the [[FileLoader]] will reload all `*.event.js` instances as well
      *  as their imported modules.
+     *  @param {boolean} recompile Defines if all files in events directory should get recompiled
      */
-    public static loadEvents(): void
+    public static loadEvents(recompile = false): void
     {
         console.info('>> Loading events from directory...');
 
-        const tsFiles: string[] = glob.sync(`${path.resolve(process.cwd(), 'src/events')}/**/*.ts`);
-        TSCompiler.compile(tsFiles, {target: ts.ScriptTarget.ES5, module: ts.ModuleKind.CommonJS});
-        FileLoader.clearFileCache(tsFiles.map(e => `${e.substr(0, e.lastIndexOf('.'))}.js`));
+        if (recompile)
+        {
+            const tsFiles: string[] = glob.sync(`${path.resolve(process.cwd(), 'src/events')}/**/*.ts`);
+            TSCompiler.compile(tsFiles, {target: ts.ScriptTarget.ES5, module: ts.ModuleKind.CommonJS});
+            FileLoader.clearFileCache(tsFiles.map(e => `${e.substr(0, e.lastIndexOf('.'))}.js`));
+        }
 
         this.eventLoader.loadFiles(path.resolve(process.cwd(), 'src/events'), `/**/*.event.js`);
 
@@ -83,6 +87,6 @@ export class EventHandler
      */
     public static unregisterEvents(client: PrideClient): void
     {
-       client.getClient().removeAllListeners();
+        client.getClient().removeAllListeners();
     }
 }

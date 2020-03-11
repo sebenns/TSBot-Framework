@@ -14,14 +14,14 @@ export class PrideHandler
 
         if (!arg || arg.match('cmds|command(s)?|cmd'))
         {
-            CmdHandler.loadCmdList();
+            CmdHandler.loadCmdList(true);
             response += 'Your commands have been successfully reloaded.\n';
         }
 
         if (!arg || arg.match('event(s)?'))
         {
             EventHandler.unregisterEvents(client);
-            EventHandler.loadEvents();
+            EventHandler.loadEvents(true);
             EventHandler.registerEvents(client);
             response += 'Your events have been successfully reloaded.\n';
         }
