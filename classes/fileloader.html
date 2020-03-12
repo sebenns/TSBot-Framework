@@ -106,7 +106,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sebenns/Pride/blob/64149c6/src/utils/FileLoader.ts#L26">src/utils/FileLoader.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/sebenns/Pride/blob/60ce64a/src/utils/FileLoader.ts#L26">src/utils/FileLoader.ts:26</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -135,7 +135,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sebenns/Pride/blob/64149c6/src/utils/FileLoader.ts#L44">src/utils/FileLoader.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/sebenns/Pride/blob/60ce64a/src/utils/FileLoader.ts#L45">src/utils/FileLoader.ts:45</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -144,6 +144,7 @@
 									<pre><code class="language-json">{
     instance {
         fn: [instance],
+        contents: [contents],
         path: &quot;filePath&quot;
     },
     ...
@@ -165,7 +166,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sebenns/Pride/blob/64149c6/src/utils/FileLoader.ts#L53">src/utils/FileLoader.ts:53</a></li>
+									<li>Defined in <a href="https://github.com/sebenns/Pride/blob/60ce64a/src/utils/FileLoader.ts#L54">src/utils/FileLoader.ts:54</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -182,13 +183,13 @@
 					<a name="requirefiles" class="tsd-anchor"></a>
 					<h3>require<wbr>Files</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">require<wbr>Files<span class="tsd-signature-symbol">(</span>dir<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, filePattern<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, cfg<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">require<wbr>Files<span class="tsd-signature-symbol">(</span>dir<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, filePattern<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, init<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, cfg<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sebenns/Pride/blob/64149c6/src/utils/FileLoader.ts#L73">src/utils/FileLoader.ts:73</a></li>
+									<li>Defined in <a href="https://github.com/sebenns/Pride/blob/60ce64a/src/utils/FileLoader.ts#L75">src/utils/FileLoader.ts:75</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -213,6 +214,12 @@
 									</div>
 								</li>
 								<li>
+									<h5>init: <span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>If true files will get initialized as functions in process of requiring.</p>
+									</div>
+								</li>
+								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> cfg: <span class="tsd-signature-type">any</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Configuration file with {identifier: boolean}</p>
@@ -233,7 +240,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sebenns/Pride/blob/64149c6/src/utils/FileLoader.ts#L110">src/utils/FileLoader.ts:110</a></li>
+									<li>Defined in <a href="https://github.com/sebenns/Pride/blob/60ce64a/src/utils/FileLoader.ts#L120">src/utils/FileLoader.ts:120</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -299,6 +306,9 @@
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-class">
+						<a href="langhandler.html" class="tsd-kind-icon">Lang<wbr>Handler</a>
+					</li>
 					<li class=" tsd-kind-class">
 						<a href="prideclient.html" class="tsd-kind-icon">Pride<wbr>Client</a>
 					</li>
