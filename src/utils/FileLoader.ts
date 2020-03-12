@@ -34,6 +34,7 @@ export class FileLoader
      * {
      *     instance {
      *         fn: [instance],
+     *         contents: [contents],
      *         path: "filePath"
      *     },
      *     ...
@@ -68,9 +69,10 @@ export class FileLoader
      * It is possible to provide a configuration, which will avoid loading unwanted files.
      * @param {string} dir Directory with files, which will be loaded
      * @param {string} filePattern Pattern for files, which should match
+     * @param {boolean} init If true files will get initialized as functions in process of requiring.
      * @param {any} cfg Configuration file with {identifier: boolean}
      */
-    public requireFiles(dir: string, filePattern: string, cfg?: any): void
+    public requireFiles(dir: string, filePattern: string, init: boolean, cfg?: any): void
     {
         const files = glob.sync(`${dir}${filePattern}`);
         const fileList = {}, cfgList = {};
@@ -94,8 +96,16 @@ export class FileLoader
             // If configuration value of identifier is true, initialize command.
             if (cfgList[identifier])
             {
-                fileList[identifier] = {fn: new (Object.values(instance)[0] as any)(), path: file};
-                console.info(`+ ${identifier} has been initialized`);
+                fileList[identifier] = {};
+                fileList[identifier].path = file;
+
+                if (init)
+                {
+                    fileList[identifier].fn = new (Object.values(instance)[0] as any)();
+                    console.info(`+ ${identifier} has been initialized`);
+                }
+                else fileList[identifier].contents = instance;
+
             }
         }
 

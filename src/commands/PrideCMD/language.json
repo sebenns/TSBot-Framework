@@ -1,0 +1,30 @@
+{
+  "reload" : {
+    "success" : "%s Success!",
+    "cmds" : "Your commands have been successfully reloaded.\n",
+    "events" : "Your events have been successfully reloaded.\n"
+  },
+  "toggle" : {
+    "enabled" : "%s Enabled %s!",
+    "disabled" : "%s Disabled %s!",
+    "enabledDesc" : "The command %s was successfully enabled.",
+    "disabledDesc" : "The command %s was successfully disabled.",
+    "enabledAlready" : "%s Already enabled %s...",
+    "disabledAlready" : "%s Already disabled %s...",
+    "enabledAlreadyDesc" : "The command %s has already been enabled.",
+    "disabledAlreadyDesc" : "The command %s has already been disabled.",
+    "notFound" : "%s Couldn't find %s...",
+    "notFoundDesc" : "There is no command called %s here. \n Try `%shelp me` for more information."
+  },
+  "color" : {
+    "green" : 5871377,
+    "red" : 12386326
+  },
+  "icons" : {
+    "checkMark" : "0x2705",
+    "crossMark" : "0x274C",
+    "greenCircle": "0x1F7E2",
+    "redCircle" : "0x1F534",
+    "questionMark" : "0x2753"
+  }
+}

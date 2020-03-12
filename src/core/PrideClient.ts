@@ -6,7 +6,6 @@ import * as Discord from 'discord.js';
  */
 export class PrideClient
 {
-
     private readonly client: Discord.Client;
 
     constructor(token: string)

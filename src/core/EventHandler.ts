@@ -35,7 +35,7 @@ export class EventHandler
      * ```
      * @returns {json} Object {instanceEvent : {fn: [instanceEvent], path: string}}
      */
-    public static getEventList(): void
+    public static getEventList(): any
     {
         return this.eventLoader.getFileList();
     }
@@ -58,7 +58,7 @@ export class EventHandler
             FileLoader.clearRequireCache(tsFiles.map(e => `${e.substr(0, e.lastIndexOf('.'))}.js`));
         }
 
-        this.eventLoader.requireFiles(path.resolve(process.cwd(), 'src/events'), `/**/*.event.js`);
+        this.eventLoader.requireFiles(path.resolve(process.cwd(), 'src/events'), `/**/*.event.js`, true);
 
         console.info('[ >> Finished loading events. ]');
     }

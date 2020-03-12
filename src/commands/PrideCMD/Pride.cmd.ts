@@ -12,9 +12,9 @@ export class PrideCmd implements Command
     ];
 
     public arguments = [
-        `reload(\\s(cmds|command(s)?|cmd|event(s)?))?`,
-        `(disable|dis)(\\s\\w+)`,
-        `(enable|en)(\\s\\w+)`
+        `\\breload(\\s(cmds|command(s)?|cmd|event(s)?))?`,
+        `\\b(disable|dis)(\\s\\w+)`,
+        `\\b(enable|en)(\\s\\w+)`
     ];
 
     public switchable = false;
