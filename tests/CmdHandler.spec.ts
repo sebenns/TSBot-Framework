@@ -26,12 +26,4 @@ describe('Command Handler', () =>
             expect(newConfig[key]).equal(config[key]);
         }
     });
-
-    it('should make functions executable', () =>
-    {
-        CmdHandler.loadCmdList();
-        const cmdList = CmdHandler.getCmdList();
-        const objKeys = Object.keys(cmdList);
-        expect(cmdList[objKeys[0]].fn).to.be.an('Object');
-    });
 });
