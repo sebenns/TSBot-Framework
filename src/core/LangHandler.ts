@@ -24,6 +24,8 @@ export class LangHandler
      *     lang['test'];
      *     lang.test;
      * }
+     * ```
+     *
      * @param {string} dir Directory with your language.json file
      * @returns {any} JSON Object with your language definitions
      */

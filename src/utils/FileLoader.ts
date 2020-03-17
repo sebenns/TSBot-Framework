@@ -85,7 +85,7 @@ export class FileLoader
             const instance = require(path.resolve(file));
             const identifier: string = Object.keys(instance)[0];
             // Check if instance file is not empty
-            if (!identifier === null || !identifier === undefined)
+            if (!identifier)
             {
                 continue;
             }

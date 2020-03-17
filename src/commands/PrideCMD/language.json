@@ -16,6 +16,10 @@
     "notFound" : "%s Couldn't find %s...",
     "notFoundDesc" : "There is no command called %s here. \n Try `%shelp me` for more information."
   },
+  "help": {
+    "commandList" : "%s Argument not found...",
+    "commandListDesc" : "Here you have a list of valid arguments: %s"
+  },
   "color" : {
     "green" : 5871377,
     "red" : 12386326

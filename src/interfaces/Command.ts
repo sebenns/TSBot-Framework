@@ -16,7 +16,7 @@ import {Token} from "../utils/Tokenizer";
  *
  *      public description: 'Just an example command';
  *
- *      public usage: 'Example usage explanation here...';
+ *      public usage: ['!example --argument word', '!exp --argument word'];
  *
  *      public permissions(client, msg, tokens): boolean
  *      {
@@ -49,7 +49,7 @@ export interface Command
     description?: string;
 
     /** (Optional) describe command usage here */
-    usage?: string;
+    usage?: string[]|string;
 
     /** Here you can create some permission checks */
     permissions(client: PrideClient, msg: Discord.Message, tokens: Token[]): boolean;

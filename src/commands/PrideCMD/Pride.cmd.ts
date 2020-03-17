@@ -17,6 +17,12 @@ export class PrideCmd implements Command
         `\\b(enable|en)(\\s\\w+)`
     ];
 
+    public usage = [
+        '!pride reload cmd(s)|event(s)',
+        '!pride disable/dis <command>',
+        '!pride enable/en <command>'
+    ];
+
     public switchable = false;
 
     permissions(client: PrideClient, msg: Discord.Message): boolean
@@ -38,5 +44,7 @@ export class PrideCmd implements Command
                     return PrideHandler.toggle(argument.token, true, msg);
             }
         }
+
+        return PrideHandler.help(this.usage, msg);
     }
 }
