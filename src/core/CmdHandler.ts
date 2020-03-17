@@ -109,7 +109,7 @@ export class CmdHandler
         }
 
         // Load command instances and initialize them
-        this.cmdLoader.requireFiles(`${path.resolve(process.cwd(), 'src/commands')}/**/*.cmd.js`, this.loadConfig());
+        this.cmdLoader.requireFiles(`${path.resolve(process.cwd(), 'src/commands')}**/*.cmd.js`, this.loadConfig());
         this.createConfig(this.cmdLoader.getCfgList());
 
         console.info('[ >> Finished loading commands. ]');

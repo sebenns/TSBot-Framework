@@ -72,7 +72,7 @@ export class FileLoader
      */
     public requireFiles(filePattern: string, cfg?: any): void
     {
-        const files: string[] = glob.sync(`${filePattern}`);
+        const files: string[] = glob.sync(filePattern);
         const fileList = {}, cfgList = {};
 
         for (const file of files)
