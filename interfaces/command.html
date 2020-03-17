@@ -68,7 +68,10 @@
 						<p>Implement this interface if you want to create your own command.</p>
 					</div>
 					<p>Filename: <code>Example.cmd.ts</code> in <code>commands/*</code></p>
-					<pre><code class="language-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ExampleCmd <span class="hljs-keyword">implements</span> Command
+					<pre><code class="language-typescript"><span class="hljs-comment">// Typings</span>
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> Discord <span class="hljs-keyword">from</span> <span class="hljs-string">'discord.js'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ExampleCmd <span class="hljs-keyword">implements</span> Command
 {
      <span class="hljs-keyword">public</span> command: [<span class="hljs-string">'example'</span>, <span class="hljs-string">'exp'</span>];
 
@@ -79,14 +82,14 @@
 
      <span class="hljs-keyword">public</span> usage: [<span class="hljs-string">'!example --argument word'</span>, <span class="hljs-string">'!exp --argument word'</span>];
 
-     <span class="hljs-keyword">public</span> permissions(client, msg, tokens): <span class="hljs-built_in">boolean</span>
+     <span class="hljs-keyword">public</span> permissions(msg, tokens): <span class="hljs-built_in">boolean</span>
      {
          <span class="hljs-comment">// Handle permissions here, you can use PermissionHandler if you want to.</span>
          <span class="hljs-comment">// permissions has to return true, otherwise command execution will stop here.</span>
          <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
      }
 
-     <span class="hljs-keyword">public</span> execute(client, msg, tokens): <span class="hljs-built_in">void</span>
+     <span class="hljs-keyword">public</span> execute(msg, tokens): <span class="hljs-built_in">void</span>
      {
          <span class="hljs-comment">// Execute your command here.</span>
          <span class="hljs-comment">// tokens: Token[] =&gt; [{token: '--argument', type: 'arguments', position: 0}]</span>
@@ -134,7 +137,7 @@
 					<div class="tsd-signature tsd-kind-icon">arguments<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/sebenns/Pride/blob/bf81166/src/interfaces/Command.ts#L43">src/interfaces/Command.ts:43</a></li>
+							<li>Defined in <a href="https://github.com/sebenns/Pride/blob/928ecfc/src/interfaces/Command.ts#L45">src/interfaces/Command.ts:45</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -149,7 +152,7 @@
 					<div class="tsd-signature tsd-kind-icon">command<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/sebenns/Pride/blob/bf81166/src/interfaces/Command.ts#L40">src/interfaces/Command.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/sebenns/Pride/blob/928ecfc/src/interfaces/Command.ts#L42">src/interfaces/Command.ts:42</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -164,7 +167,7 @@
 					<div class="tsd-signature tsd-kind-icon">description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/sebenns/Pride/blob/bf81166/src/interfaces/Command.ts#L49">src/interfaces/Command.ts:49</a></li>
+							<li>Defined in <a href="https://github.com/sebenns/Pride/blob/928ecfc/src/interfaces/Command.ts#L51">src/interfaces/Command.ts:51</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -179,7 +182,7 @@
 					<div class="tsd-signature tsd-kind-icon">switchable<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/sebenns/Pride/blob/bf81166/src/interfaces/Command.ts#L46">src/interfaces/Command.ts:46</a></li>
+							<li>Defined in <a href="https://github.com/sebenns/Pride/blob/928ecfc/src/interfaces/Command.ts#L48">src/interfaces/Command.ts:48</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -194,7 +197,7 @@
 					<div class="tsd-signature tsd-kind-icon">usage<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/sebenns/Pride/blob/bf81166/src/interfaces/Command.ts#L52">src/interfaces/Command.ts:52</a></li>
+							<li>Defined in <a href="https://github.com/sebenns/Pride/blob/928ecfc/src/interfaces/Command.ts#L54">src/interfaces/Command.ts:54</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -210,13 +213,13 @@
 					<a name="execute" class="tsd-anchor"></a>
 					<h3>execute</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">execute<span class="tsd-signature-symbol">(</span>client<span class="tsd-signature-symbol">: </span><a href="../classes/prideclient.html" class="tsd-signature-type">PrideClient</a>, msg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Message</span>, tokens<span class="tsd-signature-symbol">: </span><a href="token.html" class="tsd-signature-type">Token</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">execute<span class="tsd-signature-symbol">(</span>msg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Message</span>, tokens<span class="tsd-signature-symbol">: </span><a href="token.html" class="tsd-signature-type">Token</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sebenns/Pride/blob/bf81166/src/interfaces/Command.ts#L58">src/interfaces/Command.ts:58</a></li>
+									<li>Defined in <a href="https://github.com/sebenns/Pride/blob/928ecfc/src/interfaces/Command.ts#L60">src/interfaces/Command.ts:60</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -226,9 +229,6 @@
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
-								<li>
-									<h5>client: <a href="../classes/prideclient.html" class="tsd-signature-type">PrideClient</a></h5>
-								</li>
 								<li>
 									<h5>msg: <span class="tsd-signature-type">Message</span></h5>
 								</li>
@@ -244,13 +244,13 @@
 					<a name="permissions" class="tsd-anchor"></a>
 					<h3>permissions</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">permissions<span class="tsd-signature-symbol">(</span>client<span class="tsd-signature-symbol">: </span><a href="../classes/prideclient.html" class="tsd-signature-type">PrideClient</a>, msg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Message</span>, tokens<span class="tsd-signature-symbol">: </span><a href="token.html" class="tsd-signature-type">Token</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">permissions<span class="tsd-signature-symbol">(</span>msg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Message</span>, tokens<span class="tsd-signature-symbol">: </span><a href="token.html" class="tsd-signature-type">Token</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sebenns/Pride/blob/bf81166/src/interfaces/Command.ts#L55">src/interfaces/Command.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/sebenns/Pride/blob/928ecfc/src/interfaces/Command.ts#L57">src/interfaces/Command.ts:57</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -260,9 +260,6 @@
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
-								<li>
-									<h5>client: <a href="../classes/prideclient.html" class="tsd-signature-type">PrideClient</a></h5>
-								</li>
 								<li>
 									<h5>msg: <span class="tsd-signature-type">Message</span></h5>
 								</li>
@@ -351,9 +348,6 @@
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="tokenexpr.html" class="tsd-kind-icon">Token<wbr>Expr</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="../globals.html#pride" class="tsd-kind-icon">pride</a>
 					</li>
 				</ul>
 			</nav>

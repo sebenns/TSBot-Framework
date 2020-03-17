@@ -82,59 +82,28 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Constructors</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="prideclient.html#constructor" class="tsd-kind-icon">constructor</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="prideclient.html#getclient" class="tsd-kind-icon">get<wbr>Client</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="prideclient.html#getclient" class="tsd-kind-icon">get<wbr>Client</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="prideclient.html#loginclient" class="tsd-kind-icon">login<wbr>Client</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
-					<a name="constructor" class="tsd-anchor"></a>
-					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Pride<wbr>Client<span class="tsd-signature-symbol">(</span>token<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="prideclient.html" class="tsd-signature-type">PrideClient</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/sebenns/Pride/blob/bf81166/src/core/PrideClient.ts#L9">src/core/PrideClient.ts:9</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>token: <span class="tsd-signature-type">string</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="prideclient.html" class="tsd-signature-type">PrideClient</a></h4>
-						</li>
-					</ul>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
 					<a name="getclient" class="tsd-anchor"></a>
-					<h3>get<wbr>Client</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> get<wbr>Client</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
 						<li class="tsd-signature tsd-kind-icon">get<wbr>Client<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Client</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sebenns/Pride/blob/bf81166/src/core/PrideClient.ts#L34">src/core/PrideClient.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/sebenns/Pride/blob/928ecfc/src/core/PrideClient.ts#L28">src/core/PrideClient.ts:28</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -144,6 +113,37 @@
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Client</span></h4>
 							<p>Current instance of Discord.Client</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="loginclient" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> login<wbr>Client</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">login<wbr>Client<span class="tsd-signature-symbol">(</span>token<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/sebenns/Pride/blob/928ecfc/src/core/PrideClient.ts#L15">src/core/PrideClient.ts:15</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Tries to login with provided token.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>token: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Token provided by Discord, which can be stored in configuration file.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -179,11 +179,11 @@
 					<li class="current tsd-kind-class">
 						<a href="prideclient.html" class="tsd-kind-icon">Pride<wbr>Client</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="prideclient.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="prideclient.html#getclient" class="tsd-kind-icon">get<wbr>Client</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="prideclient.html#loginclient" class="tsd-kind-icon">login<wbr>Client</a>
 							</li>
 						</ul>
 					</li>
@@ -209,9 +209,6 @@
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/tokenexpr.html" class="tsd-kind-icon">Token<wbr>Expr</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="../globals.html#pride" class="tsd-kind-icon">pride</a>
 					</li>
 				</ul>
 			</nav>
