@@ -1,5 +1,3 @@
-import {PrideClient} from '../core/PrideClient';
-
 /**
  * Implement this interface if you want to create your own event.
  *
@@ -8,7 +6,7 @@ import {PrideClient} from '../core/PrideClient';
  * {
  *      public eventName: 'message';
  *
- *      public execute(client, msg): void
+ *      public execute(msg): void
  *      {
  *          // Execute code here on message event
  *      }
@@ -23,8 +21,7 @@ export interface BotEvent
 
     /**
      * On eventLoad this code will be invoked by default. You can handle here your event.
-     * @param {PrideClient} client Current instance of PrideClient
      * @param {any} args Arguments which will be provided by Discord event
      */
-    execute(client: PrideClient, ...args: any | any[]): void;
+    execute(...args: any | any[]): void;
 }

@@ -52,8 +52,8 @@ describe('Tokenizer Test', () =>
                 {regExpr: new RegExp('!\\w+'), type: 'command'},
                 {regExpr: new RegExp('--random \\w+'), type: 'argument'}
             ]);
-        const filteredList: Token[] = Tokenizer.filterTokens(['argument'], list);
-        const invertedList: Token[] = Tokenizer.filterTokens(['argument'], list, true);
+        const filteredList: Token[] = list.filter((el: Token) => el.type === 'argument');
+        const invertedList: Token[] = list.filter((el: Token) => el.type !== 'argument');
 
         expect(list[0].type).to.be.equal('command');
         expect(filteredList[0].type).to.be.equal('argument');

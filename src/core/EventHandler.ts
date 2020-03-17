@@ -1,9 +1,9 @@
 import {FileLoader} from '../utils/FileLoader';
 import * as path from 'path';
-import {PrideClient} from './PrideClient';
 import {TSCompiler} from "../utils/TSCompiler";
 import * as glob from 'glob';
 import * as ts from 'typescript';
+import {PrideClient} from "./PrideClient";
 
 /**
  * Event Handler with the following key features:
@@ -15,7 +15,6 @@ import * as ts from 'typescript';
  */
 export class EventHandler
 {
-
     private static eventLoader = new FileLoader();
 
     /**
@@ -58,16 +57,15 @@ export class EventHandler
             FileLoader.clearRequireCache(tsFiles.map(e => `${e.substr(0, e.lastIndexOf('.'))}.js`));
         }
 
-        this.eventLoader.requireFiles(path.resolve(process.cwd(), 'src/events'), `/**/*.event.js`, true);
+        this.eventLoader.requireFiles(`${path.resolve(process.cwd(), 'src/events')}/**/*.event.js`);
 
         console.info('[ >> Finished loading events. ]');
     }
 
     /**
      * Registers all events which have been loaded and stored in current eventList.
-     * @param {PrideClient} client Current instance of PrideClient
      */
-    public static registerEvents(client: PrideClient): void
+    public static registerEvents(): void
     {
         // Get function values of current loaded eventList
         const instances: any = Object.values(this.eventLoader.getFileList());
@@ -76,17 +74,16 @@ export class EventHandler
         for (const instance of instances)
         {
             // Create Discord event listener and provide listener arguments
-            client.getClient().on(instance.fn['eventName'],
-                (...args) => { instance.fn['execute'](client, args.length > 1 ? args : args[0]) });
+            PrideClient.getClient().on(instance.fn['eventName'],
+                (...args) => { instance.fn['execute'](args.length > 1 ? args : args[0]) });
         }
     }
 
     /**
      * Unregisters and removes all existent listeners.
-     * @param {PrideClient} client Current instance of PrideClient
      */
-    public static unregisterEvents(client: PrideClient): void
+    public static unregisterEvents(): void
     {
-        client.getClient().removeAllListeners();
+        PrideClient.getClient().removeAllListeners();
     }
 }

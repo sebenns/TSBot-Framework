@@ -6,19 +6,13 @@ import * as Discord from 'discord.js';
  */
 export class PrideClient
 {
-    private readonly client: Discord.Client;
-
-    constructor(token: string)
-    {
-        this.client = new Discord.Client();
-        this.loginClient(token);
-    }
+    private static readonly client = new Discord.Client();
 
     /**
      * Tries to login with provided token.
      * @param {string} token Token provided by Discord, which can be stored in configuration file.
      */
-    private loginClient(token: string): void
+    public static loginClient(token: string): void
     {
         this.client.login(token).catch(error =>
         {
@@ -31,7 +25,7 @@ export class PrideClient
      * Returns current instance of Discord.Client
      * @returns {Discord.Client} Current instance of Discord.Client
      */
-    public getClient(): Discord.Client
+    public static getClient(): Discord.Client
     {
         return this.client;
     }

@@ -1,4 +1,3 @@
-import {PrideClient} from '../core/PrideClient';
 import * as Discord from 'discord.js';
 import {Token} from "../utils/Tokenizer";
 
@@ -7,6 +6,9 @@ import {Token} from "../utils/Tokenizer";
  *
  * Filename: `Example.cmd.ts` in `commands/*`
  * ```typescript
+ * // Typings
+ * import * as Discord from 'discord.js';
+ *
  * export class ExampleCmd implements Command
  * {
  *      public command: ['example', 'exp'];
@@ -18,14 +20,14 @@ import {Token} from "../utils/Tokenizer";
  *
  *      public usage: ['!example --argument word', '!exp --argument word'];
  *
- *      public permissions(client, msg, tokens): boolean
+ *      public permissions(msg, tokens): boolean
  *      {
  *          // Handle permissions here, you can use PermissionHandler if you want to.
  *          // permissions has to return true, otherwise command execution will stop here.
  *          return true;
  *      }
  *
- *      public execute(client, msg, tokens): void
+ *      public execute(msg, tokens): void
  *      {
  *          // Execute your command here.
  *          // tokens: Token[] => [{token: '--argument', type: 'arguments', position: 0}]
@@ -52,8 +54,8 @@ export interface Command
     usage?: string[]|string;
 
     /** Here you can create some permission checks */
-    permissions(client: PrideClient, msg: Discord.Message, tokens: Token[]): boolean;
+    permissions(msg: Discord.Message, tokens: Token[]): boolean;
 
     /** Pride will check on command syntax and afterwards just call this method. */
-    execute(client: PrideClient, msg: Discord.Message, tokens: Token[]): void;
+    execute(msg: Discord.Message, tokens: Token[]): void;
 }

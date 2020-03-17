@@ -5,8 +5,8 @@ export class ReadyEvent implements BotEvent
 {
     public eventName = 'ready';
 
-    public execute(client: PrideClient): void
+    public execute(): void
     {
-        console.info(`${client.getClient().user.username} has successfully logged in and is now listening on events.`);
+        console.info(`${PrideClient.getClient().user.username} has successfully logged in and is now listening on events.`);
     }
 }

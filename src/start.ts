@@ -47,8 +47,8 @@ catch (error)
 }
 
 /** Current instance of PrideClient */
-const pride: PrideClient = new PrideClient(cfg.token);
+PrideClient.loginClient(cfg.token);
 
 // Initial event loading, all instances will be triggered.
 // Commands will be loaded afterwards.
-EventHandler.registerEvents(pride);
+EventHandler.registerEvents();

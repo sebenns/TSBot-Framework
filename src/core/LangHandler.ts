@@ -31,8 +31,8 @@ export class LangHandler
      */
     public static getLanguage(dir: string): any
     {
-        this.langLoader.requireFiles(dir, '/language.json', false);
+        this.langLoader.requireFiles(`${dir}/language.json`);
         const fileList = this.langLoader.getFileList();
-        return fileList[Object.keys(fileList)[0]].contents;
+        return fileList['language.json'].contents;
     }
 }

@@ -1,7 +1,6 @@
 import {ConfigHandler} from './ConfigHandler';
 import {FileLoader} from '../utils/FileLoader';
 import * as path from 'path';
-import {PrideClient} from './PrideClient';
 import * as Discord from 'discord.js';
 import {Token, TokenExpr, Tokenizer} from '../utils/Tokenizer';
 import {TSCompiler} from "../utils/TSCompiler";
@@ -110,7 +109,7 @@ export class CmdHandler
         }
 
         // Load command instances and initialize them
-        this.cmdLoader.requireFiles(path.resolve(process.cwd(), 'src/commands'), `/**/*.cmd.js`, true, this.loadConfig());
+        this.cmdLoader.requireFiles(`${path.resolve(process.cwd(), 'src/commands')}/**/*.cmd.js`, this.loadConfig());
         this.createConfig(this.cmdLoader.getCfgList());
 
         console.info('[ >> Finished loading commands. ]');
@@ -119,10 +118,9 @@ export class CmdHandler
     /**
      * Execute command events if provided message.content starts with cmdPrefix and the command itself.
      * If arguments exist in an instance of a command, the message will be tokenized and arguments will get filtered.
-     * @param {PrideClient} client Current instance of PrideClient
      * @param {Discord.Message} msg Discord Message object
      */
-    public static executeCmd(client: PrideClient, msg: Discord.Message): void
+    public static executeCmd(msg: Discord.Message): void
     {
         // Get function values of current loaded command list
         const instances: any = Object.values(this.cmdLoader.getFileList());
@@ -159,11 +157,11 @@ export class CmdHandler
                 }
 
                 // Generate a tokenList and invoke permissions() and execute()
-                const tokenList: Token[] = argExprs.length > 0 ? Tokenizer.filterTokens(['arguments'], Tokenizer.tokenize(msg.content, argExprs)) : [];
+                const tokenList: Token[] = argExprs.length > 0 ? Tokenizer.tokenize(msg.content, argExprs).filter((el: Token) => el.type === 'arguments') : [];
 
-                if (instance.fn['permissions'](client, msg, tokenList))
+                if (instance.fn['permissions'](msg, tokenList))
                 {
-                    instance.fn['execute'](client, msg, tokenList);
+                    instance.fn['execute'](msg, tokenList);
                 }
             }
         }

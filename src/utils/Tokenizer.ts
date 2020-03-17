@@ -66,33 +66,6 @@ export class Tokenizer
 
         return tokenList;
     }
-
-    /**
-     * Filters tokens by provided filter and returns a new token list.
-     * @param {string[]} filter Filters are type-names in an array
-     * @param {Token[]} tokens Tokens which have to get filtered
-     * @param inverse It will return tokens !(by filter) if true
-     * @returns {Token[]} Filtered TokenList
-     */
-    public static filterTokens(filter: string[], tokens: Token[], inverse = false): Token[]
-    {
-        const filteredTokens: Token[] = [];
-
-        for (const token of tokens)
-        {
-            if (inverse && !filter.includes(token.type))
-            {
-                filteredTokens.push(token);
-            }
-
-            if (!inverse && filter.includes(token.type))
-            {
-                filteredTokens.push(token);
-            }
-        }
-
-        return filteredTokens;
-    }
 }
 
 export interface Token

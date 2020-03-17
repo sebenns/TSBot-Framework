@@ -1,5 +1,4 @@
 import {Command} from '../../interfaces/Command';
-import {PrideClient} from '../../core/PrideClient';
 import * as Discord from 'discord.js';
 import {Token} from '../../utils/Tokenizer';
 import {PrideHandler} from "./PrideHandler";
@@ -25,23 +24,37 @@ export class PrideCmd implements Command
 
     public switchable = false;
 
-    permissions(client: PrideClient, msg: Discord.Message): boolean
+    permissions(msg: Discord.Message): boolean
     {
         return true;
     }
 
-    execute(client: PrideClient, msg: Discord.Message, tokens: Token[]): void
+    execute(msg: Discord.Message, tokens: Token[]): void
     {
         if (tokens && tokens.length > 0)
         {
+            const handler = [
+                {
+                    token : ['reload'],
+                    action: (token, msg): void => PrideHandler.reload(token, msg)
+                },
+                {
+                    token : ['disable', 'dis'],
+                    action: (token, msg): void => PrideHandler.disable(token, msg)
+                },
+                {
+                    token : ['enable', 'en'],
+                    action: (token, msg): void => PrideHandler.enable(token, msg)
+                }
+            ];
+
             for (const argument of tokens)
             {
-                if (argument.token.startsWith('reload'))
-                    return PrideHandler.reload(argument.token, client, msg);
-                if (argument.token.startsWith('disable') || argument.token.startsWith('dis'))
-                    return PrideHandler.toggle(argument.token, false, msg);
-                if (argument.token.startsWith('enable') || argument.token.startsWith('en'))
-                    return PrideHandler.toggle(argument.token, true, msg);
+                const currHandler = handler.find(handler =>
+                    handler.token.find(token =>
+                        argument.token.startsWith(token)));
+
+                if (currHandler) return currHandler.action(argument.token, msg);
             }
         }
 

@@ -67,14 +67,12 @@ export class FileLoader
      * Loads files in provided directory with provided filePattern, creates a configuration list and stores
      * a list of files as well as the configuration list in private attributes, which can be obtained by getter.
      * It is possible to provide a configuration, which will avoid loading unwanted files.
-     * @param {string} dir Directory with files, which will be loaded
      * @param {string} filePattern Pattern for files, which should match
-     * @param {boolean} init If true files will get initialized as functions in process of requiring.
      * @param {any} cfg Configuration file with {identifier: boolean}
      */
-    public requireFiles(dir: string, filePattern: string, init: boolean, cfg?: any): void
+    public requireFiles(filePattern: string, cfg?: any): void
     {
-        const files = glob.sync(`${dir}${filePattern}`);
+        const files: string[] = glob.sync(`${filePattern}`);
         const fileList = {}, cfgList = {};
 
         for (const file of files)
@@ -83,29 +81,26 @@ export class FileLoader
             delete require.cache[require.resolve(file)];
             // eslint-disable-next-line @typescript-eslint/no-var-requires
             const instance = require(path.resolve(file));
-            const identifier: string = Object.keys(instance)[0];
-            // Check if instance file is not empty
-            if (!identifier)
-            {
-                continue;
-            }
+            const instanceVal = Object.values(instance)[0];
+            // If file does only provide contents, take fileName
+            const identifier: string = typeof instanceVal === 'function' ?
+                Object.keys(instance)[0] : path.posix.basename(file);
 
             // Get configuration value of identifier, if it isn't set, set it to true.
             cfgList[identifier] = cfg && cfg[identifier] !== undefined ? cfg[identifier] : true;
 
-            // If configuration value of identifier is true, initialize command.
             if (cfgList[identifier])
             {
                 fileList[identifier] = {};
                 fileList[identifier].path = file;
 
-                if (init)
+                // Initialize file if it contains a function, otherwise put it as contents
+                if (typeof instanceVal === 'function')
                 {
                     fileList[identifier].fn = new (Object.values(instance)[0] as any)();
                     console.info(`+ ${identifier} has been initialized`);
                 }
                 else fileList[identifier].contents = instance;
-
             }
         }
 

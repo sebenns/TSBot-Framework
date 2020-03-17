@@ -14,7 +14,7 @@
     "enabledAlreadyDesc" : "The command %s has already been enabled.",
     "disabledAlreadyDesc" : "The command %s has already been disabled.",
     "notFound" : "%s Couldn't find %s...",
-    "notFoundDesc" : "There is no command called %s here. \n Try `%shelp me` for more information."
+    "notFoundDesc" : "There is no command called `%s` here. \n Try `%shelp me` for more information."
   },
   "help": {
     "commandList" : "%s Argument not found...",
