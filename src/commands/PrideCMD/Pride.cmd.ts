@@ -13,13 +13,19 @@ export class PrideCmd implements Command
     public arguments = [
         `\\breload(\\s(cmds|command(s)?|cmd|event(s)?))?`,
         `\\b(disable|dis)(\\s\\w+)`,
-        `\\b(enable|en)(\\s\\w+)`
+        `\\b(enable|en)(\\s\\w+)`,
+        `\\b(avatar|ava)\\shttp(s)?:\\/\\/[\\w.\\/]+`,
+        `\\b(username|name)\\s.+`,
+        `\\bactivity\\s.+`
     ];
 
     public usage = [
         '!pride reload cmd(s)|event(s)',
         '!pride disable/dis <command>',
-        '!pride enable/en <command>'
+        '!pride enable/en <command>',
+        '!pride avatar <url>',
+        '!pride username <new username here>',
+        '!pride activity <new activity here>'
     ];
 
     public switchable = false;
@@ -45,6 +51,18 @@ export class PrideCmd implements Command
                 {
                     token : ['enable', 'en'],
                     action: (token, msg): void => PrideHandler.enable(token, msg)
+                },
+                {
+                    token : ['avatar', 'ava'],
+                    action: (token, msg): void => PrideHandler.changeAvatar(token, msg)
+                },
+                {
+                    token: ['username', 'name'],
+                    action: (token, msg): void => PrideHandler.changeName(token, msg)
+                },
+                {
+                    token: ['activity'],
+                    action: (token, msg): void => PrideHandler.changeActivity(token, msg)
                 }
             ];
 

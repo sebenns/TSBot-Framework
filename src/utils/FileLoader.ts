@@ -106,6 +106,7 @@ export class FileLoader
 
         this.cfgList = cfgList;
         this.fileList = fileList;
+
     }
 
     /**

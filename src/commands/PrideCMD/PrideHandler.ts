@@ -117,6 +117,21 @@ export class PrideHandler
         msg.channel.send(embed);
     }
 
+    public static changeAvatar(token: string, msg: Discord.Message): void
+    {
+        console.log('avatar' + token);
+    }
+
+    public static changeName(token: string, msg: Discord.Message): void
+    {
+        console.log('name' + token);
+    }
+
+    public static changeActivity(token: string, msg: Discord.Message): void
+    {
+        console.log('activity' + token);
+    }
+
     // Displays all possible arguments
     public static help(usage: string[], msg: Discord.Message): void
     {

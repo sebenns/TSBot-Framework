@@ -103,13 +103,13 @@ export class CmdHandler
         if (recompile)
         {
             // Get full commands directory and re/compile typescript files, afterwards clear javascript require cache
-            const tsFiles: string[] = glob.sync(`${path.resolve(process.cwd(), 'src/commands')}/**/*.ts`);
+            const tsFiles: string[] = glob.sync(path.resolve(process.cwd(), 'src/commands/**/*.ts'));
             TSCompiler.compile(tsFiles, {target: ts.ScriptTarget.ES5, module: ts.ModuleKind.CommonJS});
             FileLoader.clearRequireCache(tsFiles.map(e => `${e.substr(0, e.lastIndexOf('.'))}.js`));
         }
 
         // Load command instances and initialize them
-        this.cmdLoader.requireFiles(`${path.resolve(process.cwd(), 'src/commands')}**/*.cmd.js`, this.loadConfig());
+        this.cmdLoader.requireFiles(path.resolve(process.cwd(), 'src/commands/**/*.cmd.js'), this.loadConfig());
         this.createConfig(this.cmdLoader.getCfgList());
 
         console.info('[ >> Finished loading commands. ]');
