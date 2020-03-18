@@ -86,6 +86,8 @@ export class FileLoader
             const identifier: string = typeof instanceVal === 'function' ?
                 Object.keys(instance)[0] : path.posix.basename(file);
 
+            if (instanceVal === undefined) continue;
+
             // Get configuration value of identifier, if it isn't set, set it to true.
             cfgList[identifier] = cfg && cfg[identifier] !== undefined ? cfg[identifier] : true;
 
@@ -106,7 +108,6 @@ export class FileLoader
 
         this.cfgList = cfgList;
         this.fileList = fileList;
-
     }
 
     /**
