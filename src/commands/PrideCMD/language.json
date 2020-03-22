@@ -1,34 +1,54 @@
 {
-  "reload" : {
-    "success" : "%s Success!",
-    "cmds" : "Your commands have been successfully reloaded.\n",
-    "events" : "Your events have been successfully reloaded.\n"
+  "reload": {
+    "success": "%s Success!",
+    "cmds": "Your commands have been successfully reloaded.\n",
+    "events": "Your events have been successfully reloaded.\n"
   },
-  "toggle" : {
-    "enabled" : "%s Enabled %s!",
-    "disabled" : "%s Disabled %s!",
-    "enabledDesc" : "The command %s was successfully enabled.",
-    "disabledDesc" : "The command %s was successfully disabled.",
-    "enabledAlready" : "%s Already enabled %s...",
-    "disabledAlready" : "%s Already disabled %s...",
-    "enabledAlreadyDesc" : "The command %s has already been enabled.",
-    "disabledAlreadyDesc" : "The command %s has already been disabled.",
-    "notFound" : "%s Couldn't find %s...",
-    "notFoundDesc" : "There is no command called `%s` here. \n Try `%shelp me` for more information."
+  "toggle": {
+    "enabled": "%s Enabled %s!",
+    "disabled": "%s Disabled %s!",
+    "enabledDesc": "The command %s was successfully enabled.",
+    "disabledDesc": "The command %s was successfully disabled.",
+    "enabledAlready": "%s Already enabled %s...",
+    "disabledAlready": "%s Already disabled %s...",
+    "enabledAlreadyDesc": "The command %s has already been enabled.",
+    "disabledAlreadyDesc": "The command %s has already been disabled.",
+    "notFound": "%s Couldn't find %s...",
+    "notFoundDesc": "There is no command called `%s` here. \n Try `%shelp me` for more information."
   },
   "help": {
-    "commandList" : "%s Argument not found...",
-    "commandListDesc" : "Here you have a list of valid arguments: %s"
+    "commandList": "%s Argument not found...",
+    "commandListDesc": "Here you have a list of valid arguments: %s"
   },
-  "color" : {
-    "green" : 5871377,
-    "red" : 12386326
+  "avatar": {
+    "success": "%s Avatar changed!",
+    "successDesc": "My avatar was successfully changed! Take a look at it :)!",
+    "failure": "%s Avatar could not be changed...",
+    "failureDesc": "Check if you passed a valid URL to an existing image as argument.\nThe avatar could not be changed."
   },
-  "icons" : {
-    "checkMark" : "0x2705",
-    "crossMark" : "0x274C",
+  "username": {
+    "success": "%s Username changed!",
+    "successDesc": "My username has been successfully changed. That's so cool.. B)",
+    "failure": "%s Username could not be changed...",
+    "failureDesc": "An unexpected error occurred when changing the user name. Apparently you cannot use this username :(.",
+    "info" : "%s Take care!",
+    "infoDesc" : "Changing username in Discord is heavily rate limited, with only 2 requests every hour. Use this sparingly!"
+  },
+  "prefix" : {
+    "success" : "%s Prefix changed!",
+    "successDesc" : "You have changed my prefix to `%s`<command> <arguments>. From now on I only listen to the new prefix you gave me!"
+  },
+  "color": {
+    "blue" : 7171774,
+    "green": 5871377,
+    "red": 12386326
+  },
+  "icons": {
+    "infoMark": "0x1F4E2",
+    "checkMark": "0x2705",
+    "crossMark": "0x274C",
     "greenCircle": "0x1F7E2",
-    "redCircle" : "0x1F534",
-    "questionMark" : "0x2753"
+    "redCircle": "0x1F534",
+    "questionMark": "0x2753"
   }
 }

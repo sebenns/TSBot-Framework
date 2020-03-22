@@ -49,6 +49,14 @@ catch (error)
 /** Current instance of PrideClient */
 PrideClient.loginClient(cfg.token);
 
-// Initial event loading, all instances will be triggered.
-// Commands will be loaded afterwards.
-EventHandler.registerEvents();
+try
+{
+    // Initial event loading, all instances will be triggered.
+    // Commands will be loaded afterwards.
+    EventHandler.registerEvents();
+
+}
+catch (error)
+{
+    console.error(`![EventRegister] An Error has occurred during event registering: ${error}`);
+}

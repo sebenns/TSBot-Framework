@@ -2,8 +2,11 @@ import {CmdHandler} from '../../core/CmdHandler';
 import {EventHandler} from '../../core/EventHandler';
 import * as Discord from 'discord.js';
 import {MessageEmbed} from 'discord.js';
-import * as util from "util";
-import {LangHandler} from "../../core/LangHandler";
+import * as util from 'util';
+import {PrideClient} from '../../core/PrideClient';
+import {LangHandler} from '../../core/LangHandler';
+import {Config} from '../../interfaces/Config';
+import {ConfigHandler} from '../../core/ConfigHandler';
 
 export class PrideHandler
 {
@@ -13,17 +16,15 @@ export class PrideHandler
     public static reload(token: string, msg: Discord.Message): void
     {
         const embed = new MessageEmbed().setColor(this.lang.color.green);
-
-        const arg: string = token.split(/\s/)[1];
         let response = '';
 
-        if (!arg || arg.match('cmds|command(s)?|cmd'))
+        if (!token || token.match('cmds|command(s)?|cmd'))
         {
             CmdHandler.loadCmdList(true);
             response += this.lang.reload.cmds;
         }
 
-        if (!arg || arg.match('event(s)?'))
+        if (!token || token.match('event(s)?'))
         {
             EventHandler.unregisterEvents();
             EventHandler.loadEvents(true);
@@ -39,13 +40,12 @@ export class PrideHandler
     // Enables commands and reloads commandList
     public static enable(token: string, msg: Discord.Message): void
     {
-        const arg: string = token.split(/\s/)[1];
         const cfgFile: any = CmdHandler.loadConfig();
         const embed = new MessageEmbed();
 
         for (const instance of Object.keys(cfgFile))
         {
-            if (instance.substr(0, instance.length - 3).toLocaleLowerCase() === arg.toLocaleLowerCase())
+            if (instance.substr(0, instance.length - 3).toLocaleLowerCase() === token.toLocaleLowerCase())
             {
                 if (cfgFile[instance] === false)
                 {
@@ -54,14 +54,14 @@ export class PrideHandler
                     CmdHandler.loadConfig();
 
                     embed.setColor(this.lang.color.green)
-                        .setAuthor(util.format(this.lang.toggle.enabled, String.fromCodePoint(this.lang.icons.greenCircle), arg))
-                        .setDescription(util.format(this.lang.toggle.enabledDesc, `${CmdHandler.cmdPrefix}${arg}`));
+                        .setAuthor(util.format(this.lang.toggle.enabled, String.fromCodePoint(this.lang.icons.greenCircle), token))
+                        .setDescription(util.format(this.lang.toggle.enabledDesc, `${CmdHandler.cmdPrefix}${token}`));
                 }
                 else
                 {
                     embed.setColor(this.lang.color.red)
-                        .setAuthor(util.format(this.lang.toggle.enabledAlready, String.fromCodePoint(this.lang.icons.crossMark), arg))
-                        .setDescription(util.format(this.lang.toggle.enabledAlreadyDesc, `${CmdHandler.cmdPrefix}${arg}`));
+                        .setAuthor(util.format(this.lang.toggle.enabledAlready, String.fromCodePoint(this.lang.icons.crossMark), token))
+                        .setDescription(util.format(this.lang.toggle.enabledAlreadyDesc, `${CmdHandler.cmdPrefix}${token}`));
                 }
 
                 msg.channel.send(embed);
@@ -70,8 +70,8 @@ export class PrideHandler
         }
 
         embed.setColor(this.lang.color.red)
-            .setAuthor(util.format(this.lang.toggle.notFound, String.fromCodePoint(this.lang.icons.questionMark), arg))
-            .setDescription(util.format(this.lang.toggle.notFoundDesc, `${CmdHandler.cmdPrefix}${arg}`, CmdHandler.cmdPrefix));
+            .setAuthor(util.format(this.lang.toggle.notFound, String.fromCodePoint(this.lang.icons.questionMark), token))
+            .setDescription(util.format(this.lang.toggle.notFoundDesc, `${CmdHandler.cmdPrefix}${token}`, CmdHandler.cmdPrefix));
 
         msg.channel.send(embed);
     }
@@ -79,14 +79,13 @@ export class PrideHandler
     // Disables commands and reloads commandList
     public static disable(token: string, msg: Discord.Message): void
     {
-        const arg: string = token.split(/\s/)[1];
         const cfgFile: any = CmdHandler.loadConfig();
         const cmdList: any = CmdHandler.getCmdList();
         const embed = new MessageEmbed();
 
         for (const instance of Object.keys(cfgFile))
         {
-            if (instance.substr(0, instance.length - 3).toLocaleLowerCase() === arg.toLocaleLowerCase())
+            if (instance.substr(0, instance.length - 3).toLocaleLowerCase() === token.toLocaleLowerCase())
             {
                 if (cmdList[instance] && (cmdList[instance].fn['switchable'] === undefined || cmdList[instance].fn['switchable'] === true))
                 {
@@ -95,14 +94,14 @@ export class PrideHandler
                     CmdHandler.loadCmdList();
 
                     embed.setColor(this.lang.color.red)
-                        .setAuthor(util.format(this.lang.toggle.disabled, String.fromCodePoint(this.lang.icons.redCircle), arg))
-                        .setDescription(util.format(this.lang.toggle.disabledDesc, `${CmdHandler.cmdPrefix}${arg}`));
+                        .setAuthor(util.format(this.lang.toggle.disabled, String.fromCodePoint(this.lang.icons.redCircle), token))
+                        .setDescription(util.format(this.lang.toggle.disabledDesc, `${CmdHandler.cmdPrefix}${token}`));
                 }
                 else
                 {
                     embed.setColor(this.lang.color.red)
-                        .setAuthor(util.format(this.lang.toggle.disabledAlready, String.fromCodePoint(this.lang.icons.crossMark), arg))
-                        .setDescription(util.format(this.lang.toggle.disabledAlreadyDesc, `${CmdHandler.cmdPrefix}${arg}`));
+                        .setAuthor(util.format(this.lang.toggle.disabledAlready, String.fromCodePoint(this.lang.icons.crossMark), token))
+                        .setDescription(util.format(this.lang.toggle.disabledAlreadyDesc, `${CmdHandler.cmdPrefix}${token}`));
                 }
 
                 msg.channel.send(embed);
@@ -111,25 +110,62 @@ export class PrideHandler
         }
 
         embed.setColor(this.lang.color.red)
-            .setAuthor(util.format(this.lang.toggle.notFound, String.fromCodePoint(this.lang.icons.questionMark), arg))
-            .setDescription(util.format(this.lang.toggle.notFoundDesc, `${CmdHandler.cmdPrefix}${arg}`, CmdHandler.cmdPrefix));
+            .setAuthor(util.format(this.lang.toggle.notFound, String.fromCodePoint(this.lang.icons.questionMark), token))
+            .setDescription(util.format(this.lang.toggle.notFoundDesc, `${CmdHandler.cmdPrefix}${token}`, CmdHandler.cmdPrefix));
 
         msg.channel.send(embed);
     }
 
+    // Changes current avatar of prideBot
     public static changeAvatar(token: string, msg: Discord.Message): void
     {
-        console.log('avatar' + token);
+        const embed = new MessageEmbed();
+
+        PrideClient.getClient().user.setAvatar(token)
+            .then(() => msg.channel.send(embed.setColor(this.lang.color.green)
+                .setAuthor(util.format(this.lang.avatar.success, String.fromCodePoint(this.lang.icons.checkMark)))
+                .setDescription(this.lang.avatar.successDesc)))
+
+            .catch(() => msg.channel.send(embed.setColor(this.lang.color.red)
+                .setAuthor(util.format(this.lang.avatar.failure, String.fromCodePoint(this.lang.icons.crossMark)))
+                .setDescription(this.lang.avatar.failureDesc)));
     }
 
-    public static changeName(token: string, msg: Discord.Message): void
+    // Changes username of prideBot - rate limited to two changes per hour
+    public static changeUserName(token: string, msg: Discord.Message): void
     {
-        console.log('name' + token);
+        if (token.startsWith('\'') && token.endsWith('\'') || token.startsWith('"') && token.endsWith('"'))
+            token = token.substr(1, token.length - 2);
+        const embed = new MessageEmbed();
+
+        msg.channel.send(embed.setColor(this.lang.color.blue)
+            .setAuthor(util.format(this.lang.username.info, String.fromCodePoint(this.lang.icons.infoMark)))
+            .setDescription(this.lang.username.infoDesc));
+
+        PrideClient.getClient().user.setUsername(token)
+            .then(() => msg.channel.send(embed.setColor(this.lang.color.green)
+                .setAuthor(util.format(this.lang.username.success, String.fromCodePoint(this.lang.icons.checkMark)))
+                .setDescription(this.lang.username.successDesc)))
+
+            .catch(() => msg.channel.send(embed.setColor(this.lang.color.red)
+                .setAuthor(util.format(this.lang.username.failure, String.fromCodePoint(this.lang.icons.crossMark)))
+                .setDescription(this.lang.username.failureDesc)));
     }
 
-    public static changeActivity(token: string, msg: Discord.Message): void
+    public static changePrefix(token: string, msg: Discord.Message): void
     {
-        console.log('activity' + token);
+        // Load configuration file and change prefix.
+        const cfg: Config = ConfigHandler.loadConfig<Config>('config');
+        cfg.prefix = token;
+
+        // Reset prefix in CommandHandler and store new configuration, reload Commands.
+        CmdHandler.cmdPrefix = cfg.prefix;
+        CmdHandler.loadCmdList();
+        ConfigHandler.createConfig<Config>('config', cfg);
+
+        msg.channel.send(new MessageEmbed().setColor(this.lang.color.green)
+            .setAuthor(util.format(this.lang.prefix.success, String.fromCodePoint(this.lang.icons.checkMark)))
+            .setDescription(util.format(this.lang.prefix.successDesc, token)));
     }
 
     // Displays all possible arguments

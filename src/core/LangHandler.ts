@@ -33,6 +33,6 @@ export class LangHandler
     {
         this.langLoader.requireFiles(`${dir}/language.json`);
         const fileList = this.langLoader.getFileList();
-        return fileList['language.json'].contents;
+        return fileList['language.json'] ? fileList['language.json'].contents : {};
     }
 }

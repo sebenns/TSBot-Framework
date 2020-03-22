@@ -2,6 +2,7 @@ import {Command} from '../../interfaces/Command';
 import * as Discord from 'discord.js';
 import {Token} from '../../utils/Tokenizer';
 import {PrideHandler} from "./PrideHandler";
+import {CmdHandler} from "../../core/CmdHandler";
 
 export class PrideCmd implements Command
 {
@@ -15,17 +16,17 @@ export class PrideCmd implements Command
         `\\b(disable|dis)(\\s\\w+)`,
         `\\b(enable|en)(\\s\\w+)`,
         `\\b(avatar|ava)\\shttp(s)?:\\/\\/[\\w.\\/]+`,
-        `\\b(username|name)\\s.+`,
-        `\\bactivity\\s.+`
+        `\\b(username|uname)\\s.+`,
+        `\\bprefix\\s[^\\s]+`
     ];
 
     public usage = [
-        '!pride reload cmd(s)|event(s)',
-        '!pride disable/dis <command>',
-        '!pride enable/en <command>',
-        '!pride avatar <url>',
-        '!pride username <new username here>',
-        '!pride activity <new activity here>'
+        `${CmdHandler.cmdPrefix}pride reload cmd(s)|event(s)`,
+        `${CmdHandler.cmdPrefix}pride disable/dis <command>`,
+        `${CmdHandler.cmdPrefix}pride enable/en <command>`,
+        `${CmdHandler.cmdPrefix}pride avatar <url>`,
+        `${CmdHandler.cmdPrefix}pride username <new username here>`,
+        `${CmdHandler.cmdPrefix}pride prefix <new prefix here>`
     ];
 
     public switchable = false;
@@ -57,12 +58,12 @@ export class PrideCmd implements Command
                     action: (token, msg): void => PrideHandler.changeAvatar(token, msg)
                 },
                 {
-                    token: ['username', 'name'],
-                    action: (token, msg): void => PrideHandler.changeName(token, msg)
+                    token : ['username', 'uname'],
+                    action: (token, msg): void => PrideHandler.changeUserName(token, msg)
                 },
                 {
-                    token: ['activity'],
-                    action: (token, msg): void => PrideHandler.changeActivity(token, msg)
+                    token : ['prefix'],
+                    action: (token, msg): void => PrideHandler.changePrefix(token, msg)
                 }
             ];
 
@@ -72,7 +73,11 @@ export class PrideCmd implements Command
                     handler.token.find(token =>
                         argument.token.startsWith(token)));
 
-                if (currHandler) return currHandler.action(argument.token, msg);
+                if (currHandler)
+                {
+                    if (argument.token.indexOf(' ') < 0) argument.token = '';
+                    return currHandler.action(argument.token.substr(argument.token.indexOf(' ') + 1), msg);
+                }
             }
         }
 
