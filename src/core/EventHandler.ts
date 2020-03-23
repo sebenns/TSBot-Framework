@@ -19,6 +19,7 @@ export class EventHandler
 
     /**
      * Returns current loaded list of events containing an instance of class and filePath. <br />
+     *
      * ```json
      * {
      *     instanceEvent: {
@@ -31,6 +32,7 @@ export class EventHandler
      *     },
      *     ...
      * }
+     *
      * ```
      * @returns {json} Object {instanceEvent : {fn: [instanceEvent], path: string}}
      */

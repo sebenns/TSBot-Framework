@@ -1,7 +1,6 @@
 import {CmdHandler} from '../../core/CmdHandler';
 import {EventHandler} from '../../core/EventHandler';
-import * as Discord from 'discord.js';
-import {MessageEmbed} from 'discord.js';
+import {Message, MessageEmbed} from 'discord.js';
 import * as util from 'util';
 import {PrideClient} from '../../core/PrideClient';
 import {LangHandler} from '../../core/LangHandler';
@@ -13,7 +12,7 @@ export class PrideHandler
     public static lang = LangHandler.getLanguage(__dirname);
 
     // Reloads the set of commands/events via CommandHandler/EventHandler
-    public static reload(token: string, msg: Discord.Message): void
+    public static reload(token: string, msg: Message): void
     {
         const embed = new MessageEmbed().setColor(this.lang.color.green);
         let response = '';
@@ -38,7 +37,7 @@ export class PrideHandler
     }
 
     // Enables commands and reloads commandList
-    public static enable(token: string, msg: Discord.Message): void
+    public static enable(token: string, msg: Message): void
     {
         const cfgFile: any = CmdHandler.loadConfig();
         const embed = new MessageEmbed();
@@ -77,7 +76,7 @@ export class PrideHandler
     }
 
     // Disables commands and reloads commandList
-    public static disable(token: string, msg: Discord.Message): void
+    public static disable(token: string, msg: Message): void
     {
         const cfgFile: any = CmdHandler.loadConfig();
         const cmdList: any = CmdHandler.getCmdList();
@@ -117,7 +116,7 @@ export class PrideHandler
     }
 
     // Changes current avatar of prideBot
-    public static changeAvatar(token: string, msg: Discord.Message): void
+    public static changeAvatar(token: string, msg: Message): void
     {
         const embed = new MessageEmbed();
 
@@ -132,7 +131,7 @@ export class PrideHandler
     }
 
     // Changes username of prideBot - rate limited to two changes per hour
-    public static changeUserName(token: string, msg: Discord.Message): void
+    public static changeUserName(token: string, msg: Message): void
     {
         if (token.startsWith('\'') && token.endsWith('\'') || token.startsWith('"') && token.endsWith('"'))
             token = token.substr(1, token.length - 2);
@@ -152,7 +151,8 @@ export class PrideHandler
                 .setDescription(this.lang.username.failureDesc)));
     }
 
-    public static changePrefix(token: string, msg: Discord.Message): void
+    // Changes current bot command prefix and replaces it with provided token
+    public static changePrefix(token: string, msg: Message): void
     {
         // Load configuration file and change prefix.
         const cfg: Config = ConfigHandler.loadConfig<Config>('config');
@@ -168,8 +168,25 @@ export class PrideHandler
             .setDescription(util.format(this.lang.prefix.successDesc, token)));
     }
 
+    // Changes owner to provided discord id
+    public static changeOwner(token: string, msg: Message): void
+    {
+        // User mention is starting with <@! and ending with >
+        const userId = token.substring(token.indexOf('!') + 1, token.lastIndexOf('>'));
+
+        const cfg: Config = ConfigHandler.loadConfig<Config>('config');
+        cfg.owner = userId;
+
+        // Store new configuration file
+        ConfigHandler.createConfig<Config>('config', cfg);
+
+        msg.channel.send(new MessageEmbed().setColor(this.lang.color.green)
+            .setAuthor(util.format(this.lang.owner.success, String.fromCodePoint(this.lang.icons.checkMark)))
+            .setDescription(util.format(this.lang.owner.successDesc, token)));
+    }
+
     // Displays all possible arguments
-    public static help(usage: string[], msg: Discord.Message): void
+    public static help(usage: string[], msg: Message): void
     {
         let concCmd = '```';
         usage.forEach(use => concCmd += `${use}\n`);

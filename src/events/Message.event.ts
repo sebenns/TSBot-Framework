@@ -1,12 +1,12 @@
 import {BotEvent} from '../interfaces/BotEvent';
-import * as Discord from 'discord.js';
 import {CmdHandler} from '../core/CmdHandler';
+import {Message} from 'discord.js';
 
 export class MessageEvent implements BotEvent
 {
     public eventName = 'message';
 
-    public execute(msg: Discord.Message): void
+    public execute(msg: Message): void
     {
         // Commands will only get executed, if they start with the prefix set in configuration file.
         try

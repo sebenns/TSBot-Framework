@@ -1,8 +1,9 @@
 import {Command} from '../../interfaces/Command';
-import * as Discord from 'discord.js';
 import {Token} from '../../utils/Tokenizer';
 import {PrideHandler} from "./PrideHandler";
 import {CmdHandler} from "../../core/CmdHandler";
+import {Message} from 'discord.js';
+import {PermHandler} from "../../core/PermHandler";
 
 export class PrideCmd implements Command
 {
@@ -17,7 +18,8 @@ export class PrideCmd implements Command
         `\\b(enable|en)(\\s\\w+)`,
         `\\b(avatar|ava)\\shttp(s)?:\\/\\/[\\w.\\/]+`,
         `\\b(username|uname)\\s.+`,
-        `\\bprefix\\s[^\\s]+`
+        `\\bprefix\\s[^\\s]+`,
+        `\\bowner\\s<@![0-9]+>`
     ];
 
     public usage = [
@@ -26,17 +28,20 @@ export class PrideCmd implements Command
         `${CmdHandler.cmdPrefix}pride enable/en <command>`,
         `${CmdHandler.cmdPrefix}pride avatar <url>`,
         `${CmdHandler.cmdPrefix}pride username <new username here>`,
-        `${CmdHandler.cmdPrefix}pride prefix <new prefix here>`
+        `${CmdHandler.cmdPrefix}pride prefix <new prefix here>`,
+        `${CmdHandler.cmdPrefix}pride owner`
     ];
+
+    public description = 'Make basic settings with the Pride command. De/activate commands, change username, avatar and prefix, transfer ownership.';
 
     public switchable = false;
 
-    permissions(msg: Discord.Message): boolean
+    permissions(msg: Message): boolean
     {
-        return true;
+        return PermHandler.isPrideOwner(msg) || PermHandler.isOwner(msg);
     }
 
-    execute(msg: Discord.Message, tokens: Token[]): void
+    execute(msg: Message, tokens: Token[]): void
     {
         if (tokens && tokens.length > 0)
         {
@@ -64,6 +69,10 @@ export class PrideCmd implements Command
                 {
                     token : ['prefix'],
                     action: (token, msg): void => PrideHandler.changePrefix(token, msg)
+                },
+                {
+                    token : ['owner'],
+                    action: (token, msg): void => PrideHandler.changeOwner(token, msg)
                 }
             ];
 

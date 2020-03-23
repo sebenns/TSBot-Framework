@@ -38,6 +38,10 @@
     "success" : "%s Prefix changed!",
     "successDesc" : "You have changed my prefix to `%s`<command> <arguments>. From now on I only listen to the new prefix you gave me!"
   },
+  "owner" : {
+    "success" : "%s Owner changed!",
+    "successDesc" : "You have successfully changed my owner. My new owner is now %s! \nHey master, you look quite beautiful today :hearts:..."
+  },
   "color": {
     "blue" : 7171774,
     "green": 5871377,

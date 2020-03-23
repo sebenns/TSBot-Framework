@@ -6,7 +6,7 @@
     <p>
         <a href="https://github.com/sebenns/Pride/actions"><img src="https://github.com/sebenns/Pride/workflows/Prideflow%20NodeJS/badge.svg" /></a>
         <a href="https://david-dm.org/sebenns/Pride" title="dependencies status"><img src="https://david-dm.org/sebenns/Pride/status.svg"/></a>
-        <a><img src="https://badgen.net/badge/Pride for Discord/Getting Started/blue?icon=discord&labelColor=black"></a>
+        <a><img src="https://get.sebb.li/files/getstarted.svg"></a>
     </p>
 </div>
 

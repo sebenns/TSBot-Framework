@@ -1,11 +1,11 @@
 import {ConfigHandler} from './ConfigHandler';
 import {FileLoader} from '../utils/FileLoader';
 import * as path from 'path';
-import * as Discord from 'discord.js';
 import {Token, TokenExpr, Tokenizer} from '../utils/Tokenizer';
-import {TSCompiler} from "../utils/TSCompiler";
+import {TSCompiler} from '../utils/TSCompiler';
 import * as glob from 'glob';
 import * as ts from 'typescript';
+import {Message} from 'discord.js';
 
 /**
  * Command Handler with the following key features:
@@ -118,9 +118,9 @@ export class CmdHandler
     /**
      * Execute command events if provided message.content starts with cmdPrefix and the command itself.
      * If arguments exist in an instance of a command, the message will be tokenized and arguments will get filtered.
-     * @param {Discord.Message} msg Discord Message object
+     * @param {Message} msg Discord Message object
      */
-    public static executeCmd(msg: Discord.Message): void
+    public static executeCmd(msg: Message): void
     {
         // Get function values of current loaded command list
         const instances: any = Object.values(this.cmdLoader.getFileList());

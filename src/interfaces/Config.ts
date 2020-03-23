@@ -1,7 +1,9 @@
+import {Snowflake} from 'discord.js';
+
 export interface Config
 {
     /** DiscordId **/
-    owner: string;
+    owner: Snowflake;
     /** Command prefix **/
     prefix: string;
     /** Discord Token **/

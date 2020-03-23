@@ -1,5 +1,5 @@
-import * as Discord from 'discord.js';
-import {Token} from "../utils/Tokenizer";
+import {Token} from '../utils/Tokenizer';
+import {Message} from 'discord.js';
 
 /**
  * Implement this interface if you want to create your own command.
@@ -54,8 +54,8 @@ export interface Command
     usage?: string[]|string;
 
     /** Here you can create some permission checks */
-    permissions(msg: Discord.Message, tokens: Token[]): boolean;
+    permissions(msg: Message, tokens: Token[]): boolean;
 
     /** Pride will check on command syntax and afterwards just call this method. */
-    execute(msg: Discord.Message, tokens: Token[]): void;
+    execute(msg: Message, tokens: Token[]): void;
 }
