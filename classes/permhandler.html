@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Tokenizer | Pride Framework</title>
+	<title>PermHandler | Pride Framework</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -52,10 +52,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="tokenizer.html">Tokenizer</a>
+					<a href="permhandler.html">PermHandler</a>
 				</li>
 			</ul>
-			<h1>Class Tokenizer</h1>
+			<h1>Class PermHandler</h1>
 		</div>
 	</div>
 </header>
@@ -65,7 +65,11 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Tokenizer helps to tokenize strings into tokens with token itself, type and starting position</p>
+						<p>Permission Handler:
+							<ul>
+								<li>Allows you to check on permission privileges, groups and identity
+						<li>Allows to simply configure your command permissions</p>
+						</ul>
 					</div>
 				</div>
 			</section>
@@ -73,7 +77,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Tokenizer</span>
+						<span class="target">PermHandler</span>
 					</li>
 				</ul>
 			</section>
@@ -84,7 +88,10 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="tokenizer.html#tokenize" class="tsd-kind-icon">tokenize</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="permhandler.html#hasprivilege" class="tsd-kind-icon">has<wbr>Privilege</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="permhandler.html#isadministrator" class="tsd-kind-icon">is<wbr>Administrator</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="permhandler.html#isowner" class="tsd-kind-icon">is<wbr>Owner</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="permhandler.html#isprideowner" class="tsd-kind-icon">is<wbr>Pride<wbr>Owner</a></li>
 							</ul>
 						</section>
 					</div>
@@ -93,40 +100,132 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="tokenize" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> tokenize</h3>
+					<a name="hasprivilege" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> has<wbr>Privilege</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">tokenize<span class="tsd-signature-symbol">(</span>text<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, parsers<span class="tsd-signature-symbol">: </span><a href="../interfaces/tokenexpr.html" class="tsd-signature-type">TokenExpr</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/token.html" class="tsd-signature-type">Token</a><span class="tsd-signature-symbol">[]</span></li>
+						<li class="tsd-signature tsd-kind-icon">has<wbr>Privilege<span class="tsd-signature-symbol">(</span>msg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Message</span>, flag<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BitFieldResolvable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PermissionString</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">BitFieldResolvable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PermissionString</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sebenns/Pride/blob/4298d09/src/utils/Tokenizer.ts#L14">src/utils/Tokenizer.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/sebenns/Pride/blob/4298d09/src/core/PermHandler.ts#L53">src/core/PermHandler.ts:53</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Accepts a text and divides it into individual tokens with position and typing. Written following @github/borgar.</p>
+									<p>Checks if author of provided message has provided privilege(s)</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>text: <span class="tsd-signature-type">string</span></h5>
+									<h5>msg: <span class="tsd-signature-type">Message</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Text which should be tokenized</p>
+										<p>Discord message object</p>
 									</div>
 								</li>
 								<li>
-									<h5>parsers: <a href="../interfaces/tokenexpr.html" class="tsd-signature-type">TokenExpr</a><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>flag: <span class="tsd-signature-type">BitFieldResolvable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PermissionString</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">BitFieldResolvable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PermissionString</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Define here different parser for tokenize</p>
+										<p>Permission flag, see <a href="https://discord.js.org/#/docs/main/stable/typedef/PermissionResolvable">https://discord.js.org/#/docs/main/stable/typedef/PermissionResolvable</a></p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/token.html" class="tsd-signature-type">Token</a><span class="tsd-signature-symbol">[]</span></h4>
-							<p>TokenList</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="isadministrator" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> is<wbr>Administrator</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Administrator<span class="tsd-signature-symbol">(</span>msg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Message</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/sebenns/Pride/blob/4298d09/src/core/PermHandler.ts#L41">src/core/PermHandler.ts:41</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Checks if author of provided message has administrator privileges (administrator || owner)</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>msg: <span class="tsd-signature-type">Message</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Discord message object</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="isowner" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> is<wbr>Owner</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Owner<span class="tsd-signature-symbol">(</span>msg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Message</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/sebenns/Pride/blob/4298d09/src/core/PermHandler.ts#L31">src/core/PermHandler.ts:31</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Checks if author of provided message is guild owner</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>msg: <span class="tsd-signature-type">Message</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Discord message object</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="isprideowner" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> is<wbr>Pride<wbr>Owner</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Pride<wbr>Owner<span class="tsd-signature-symbol">(</span>msg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Message</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/sebenns/Pride/blob/4298d09/src/core/PermHandler.ts#L20">src/core/PermHandler.ts:20</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Checks if author of provided message is prideOwner (specified in configuration file)</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>msg: <span class="tsd-signature-type">Message</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Discord message object</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -157,27 +256,36 @@
 					<li class=" tsd-kind-class">
 						<a href="langhandler.html" class="tsd-kind-icon">Lang<wbr>Handler</a>
 					</li>
-					<li class=" tsd-kind-class">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class">
 						<a href="permhandler.html" class="tsd-kind-icon">Perm<wbr>Handler</a>
+						<ul>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="permhandler.html#hasprivilege" class="tsd-kind-icon">has<wbr>Privilege</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="permhandler.html#isadministrator" class="tsd-kind-icon">is<wbr>Administrator</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="permhandler.html#isowner" class="tsd-kind-icon">is<wbr>Owner</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="permhandler.html#isprideowner" class="tsd-kind-icon">is<wbr>Pride<wbr>Owner</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-class">
 						<a href="prideclient.html" class="tsd-kind-icon">Pride<wbr>Client</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="tscompiler.html" class="tsd-kind-icon">TSCompiler</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-class">
+					<li class=" tsd-kind-class">
 						<a href="tokenizer.html" class="tsd-kind-icon">Tokenizer</a>
-						<ul>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="tokenizer.html#tokenize" class="tsd-kind-icon">tokenize</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/botevent.html" class="tsd-kind-icon">Bot<wbr>Event</a>
 					</li>
