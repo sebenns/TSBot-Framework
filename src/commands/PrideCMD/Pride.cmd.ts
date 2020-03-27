@@ -43,6 +43,7 @@ export class PrideCmd implements Command
 
     execute(msg: Message, tokens: Token[]): void
     {
+        // Filter through tokens and execute action for specified token
         if (tokens && tokens.length > 0)
         {
             const handler = [

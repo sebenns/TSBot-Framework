@@ -9,7 +9,7 @@ import {ConfigHandler} from '../../core/ConfigHandler';
 
 export class PrideHandler
 {
-    public static lang = LangHandler.getLanguage(__dirname);
+    private static lang = LangHandler.getLanguage(__dirname);
 
     // Reloads the set of commands/events via CommandHandler/EventHandler
     public static reload(token: string, msg: Message): void
@@ -32,7 +32,7 @@ export class PrideHandler
         }
 
         msg.channel.send(embed
-            .setAuthor(util.format(this.lang.reload.success, String.fromCodePoint(this.lang.icons.checkMark)))
+            .setAuthor(util.format(this.lang.reload.success, String.fromCodePoint(this.lang.icon.checkMark)))
             .setDescription(response));
     }
 
@@ -53,13 +53,13 @@ export class PrideHandler
                     CmdHandler.loadConfig();
 
                     embed.setColor(this.lang.color.green)
-                        .setAuthor(util.format(this.lang.toggle.enabled, String.fromCodePoint(this.lang.icons.greenCircle), token))
+                        .setAuthor(util.format(this.lang.toggle.enabled, String.fromCodePoint(this.lang.icon.greenCircle), token))
                         .setDescription(util.format(this.lang.toggle.enabledDesc, `${CmdHandler.cmdPrefix}${token}`));
                 }
                 else
                 {
                     embed.setColor(this.lang.color.red)
-                        .setAuthor(util.format(this.lang.toggle.enabledAlready, String.fromCodePoint(this.lang.icons.crossMark), token))
+                        .setAuthor(util.format(this.lang.toggle.enabledAlready, String.fromCodePoint(this.lang.icon.crossMark), token))
                         .setDescription(util.format(this.lang.toggle.enabledAlreadyDesc, `${CmdHandler.cmdPrefix}${token}`));
                 }
 
@@ -69,7 +69,7 @@ export class PrideHandler
         }
 
         embed.setColor(this.lang.color.red)
-            .setAuthor(util.format(this.lang.toggle.notFound, String.fromCodePoint(this.lang.icons.questionMark), token))
+            .setAuthor(util.format(this.lang.toggle.notFound, String.fromCodePoint(this.lang.icon.questionMark), token))
             .setDescription(util.format(this.lang.toggle.notFoundDesc, `${CmdHandler.cmdPrefix}${token}`, CmdHandler.cmdPrefix));
 
         msg.channel.send(embed);
@@ -93,13 +93,13 @@ export class PrideHandler
                     CmdHandler.loadCmdList();
 
                     embed.setColor(this.lang.color.red)
-                        .setAuthor(util.format(this.lang.toggle.disabled, String.fromCodePoint(this.lang.icons.redCircle), token))
+                        .setAuthor(util.format(this.lang.toggle.disabled, String.fromCodePoint(this.lang.icon.redCircle), token))
                         .setDescription(util.format(this.lang.toggle.disabledDesc, `${CmdHandler.cmdPrefix}${token}`));
                 }
                 else
                 {
                     embed.setColor(this.lang.color.red)
-                        .setAuthor(util.format(this.lang.toggle.disabledAlready, String.fromCodePoint(this.lang.icons.crossMark), token))
+                        .setAuthor(util.format(this.lang.toggle.disabledAlready, String.fromCodePoint(this.lang.icon.crossMark), token))
                         .setDescription(util.format(this.lang.toggle.disabledAlreadyDesc, `${CmdHandler.cmdPrefix}${token}`));
                 }
 
@@ -109,7 +109,7 @@ export class PrideHandler
         }
 
         embed.setColor(this.lang.color.red)
-            .setAuthor(util.format(this.lang.toggle.notFound, String.fromCodePoint(this.lang.icons.questionMark), token))
+            .setAuthor(util.format(this.lang.toggle.notFound, String.fromCodePoint(this.lang.icon.questionMark), token))
             .setDescription(util.format(this.lang.toggle.notFoundDesc, `${CmdHandler.cmdPrefix}${token}`, CmdHandler.cmdPrefix));
 
         msg.channel.send(embed);
@@ -122,11 +122,11 @@ export class PrideHandler
 
         PrideClient.getClient().user.setAvatar(token)
             .then(() => msg.channel.send(embed.setColor(this.lang.color.green)
-                .setAuthor(util.format(this.lang.avatar.success, String.fromCodePoint(this.lang.icons.checkMark)))
+                .setAuthor(util.format(this.lang.avatar.success, String.fromCodePoint(this.lang.icon.checkMark)))
                 .setDescription(this.lang.avatar.successDesc)))
 
             .catch(() => msg.channel.send(embed.setColor(this.lang.color.red)
-                .setAuthor(util.format(this.lang.avatar.failure, String.fromCodePoint(this.lang.icons.crossMark)))
+                .setAuthor(util.format(this.lang.avatar.failure, String.fromCodePoint(this.lang.icon.crossMark)))
                 .setDescription(this.lang.avatar.failureDesc)));
     }
 
@@ -138,16 +138,16 @@ export class PrideHandler
         const embed = new MessageEmbed();
 
         msg.channel.send(embed.setColor(this.lang.color.blue)
-            .setAuthor(util.format(this.lang.username.info, String.fromCodePoint(this.lang.icons.infoMark)))
+            .setAuthor(util.format(this.lang.username.info, String.fromCodePoint(this.lang.icon.infoMark)))
             .setDescription(this.lang.username.infoDesc));
 
         PrideClient.getClient().user.setUsername(token)
             .then(() => msg.channel.send(embed.setColor(this.lang.color.green)
-                .setAuthor(util.format(this.lang.username.success, String.fromCodePoint(this.lang.icons.checkMark)))
+                .setAuthor(util.format(this.lang.username.success, String.fromCodePoint(this.lang.icon.checkMark)))
                 .setDescription(this.lang.username.successDesc)))
 
             .catch(() => msg.channel.send(embed.setColor(this.lang.color.red)
-                .setAuthor(util.format(this.lang.username.failure, String.fromCodePoint(this.lang.icons.crossMark)))
+                .setAuthor(util.format(this.lang.username.failure, String.fromCodePoint(this.lang.icon.crossMark)))
                 .setDescription(this.lang.username.failureDesc)));
     }
 
@@ -164,7 +164,7 @@ export class PrideHandler
         ConfigHandler.createConfig<Config>('config', cfg);
 
         msg.channel.send(new MessageEmbed().setColor(this.lang.color.green)
-            .setAuthor(util.format(this.lang.prefix.success, String.fromCodePoint(this.lang.icons.checkMark)))
+            .setAuthor(util.format(this.lang.prefix.success, String.fromCodePoint(this.lang.icon.checkMark)))
             .setDescription(util.format(this.lang.prefix.successDesc, token)));
     }
 
@@ -181,7 +181,7 @@ export class PrideHandler
         ConfigHandler.createConfig<Config>('config', cfg);
 
         msg.channel.send(new MessageEmbed().setColor(this.lang.color.green)
-            .setAuthor(util.format(this.lang.owner.success, String.fromCodePoint(this.lang.icons.checkMark)))
+            .setAuthor(util.format(this.lang.owner.success, String.fromCodePoint(this.lang.icon.checkMark)))
             .setDescription(util.format(this.lang.owner.successDesc, token)));
     }
 
@@ -193,7 +193,7 @@ export class PrideHandler
         concCmd += '```';
 
         const embed = new MessageEmbed().setColor(this.lang.color.red)
-            .setAuthor(util.format(this.lang.help.commandList, String.fromCodePoint(this.lang.icons.questionMark)))
+            .setAuthor(util.format(this.lang.help.commandList, String.fromCodePoint(this.lang.icon.questionMark)))
             .setDescription(util.format(this.lang.help.commandListDesc, concCmd));
 
         msg.channel.send(embed);

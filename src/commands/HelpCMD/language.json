@@ -1,0 +1,15 @@
+{
+  "help": {
+    "title": "The following commands are available:",
+    "desc": "You can get more information about a command with `!help u <command>`\n\n",
+    "footer" : "You are on page %s of %s."
+  },
+  "usage" :
+  {
+    "title" : "How to use %s:",
+    "desc" : "%s\n\n%s"
+  },
+  "color": {
+    "blue": 7171774
+  }
+}
