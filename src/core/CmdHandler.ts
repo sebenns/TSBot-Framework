@@ -131,6 +131,7 @@ export class CmdHandler
         for (const instance of instances)
         {
             const command: string | string[] = instance.fn['command'];
+            if (!command) continue;
 
             // Check if command does exist in instance
             if ((!Array.isArray(command) && command.toLocaleLowerCase() === execCmd) ||

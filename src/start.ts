@@ -14,7 +14,7 @@ if (Number(process.versions.node.substring(0, process.versions.node.indexOf('.')
 /** @ignore Current bot configuration */
 let cfg: Config;
 
-// Loads the configuration file, if it does not exist, it will be created.
+// Try to load configuration file. If it does not exist, create a new one and stop the current process.
 try
 {
     cfg = ConfigHandler.loadConfig<Config>('config');
@@ -26,6 +26,7 @@ catch (error)
     process.exit(1);
 }
 
+// Try to load command prefix and commands out of command directory.
 try
 {
     CmdHandler.cmdPrefix = cfg.prefix;
@@ -37,6 +38,7 @@ catch (error)
     process.exit(1);
 }
 
+// Try to load events out of event directory.
 try
 {
     EventHandler.loadEvents();
@@ -46,13 +48,12 @@ catch (error)
     console.error(`![EventLoading] An Error has occurred during event loading: ${error}`);
 }
 
-/** Current instance of PrideClient */
+// Login Discord client and store current logged instance in Pride Wrapper
 PrideClient.loginClient(cfg.token);
 
 try
 {
     // Initial event loading, all instances will be triggered.
-    // Commands will be loaded afterwards.
     EventHandler.registerEvents();
 
 }

@@ -2,6 +2,7 @@ import {Command} from '../../interfaces/Command';
 import {Token} from '../../utils/Tokenizer';
 import {Message} from 'discord.js';
 import {HelpHandler} from "./HelpHandler";
+import {CmdHandler} from "../../core/CmdHandler";
 
 export class HelpCmd implements Command
 {
@@ -11,6 +12,15 @@ export class HelpCmd implements Command
         '(page|p)(\\s)?[0-9]+',
         '(usage|u)(\\s)?.+'
     ];
+
+    public usage = [
+        `${CmdHandler.cmdPrefix}help p <page number>`,
+        `${CmdHandler.cmdPrefix}help u <command>`
+    ];
+
+    public description = 'With the help command you get all necessary information about commands and their usage.';
+
+    public switchable = false;
 
     public permissions(): boolean
     {

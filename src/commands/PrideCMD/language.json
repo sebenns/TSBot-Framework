@@ -10,9 +10,11 @@
     "enabledDesc": "The command %s was successfully enabled.",
     "disabledDesc": "The command %s was successfully disabled.",
     "enabledAlready": "%s Already enabled %s...",
+    "enabledAlreadyDesc": "The command %s has already been activated.",
     "disabledAlready": "%s Already disabled %s...",
-    "enabledAlreadyDesc": "The command %s has already been enabled.",
-    "disabledAlreadyDesc": "The command %s has already been disabled.",
+    "disabledAlreadyDesc": "The command %s has already been deactivated.",
+    "unswitchable": "%s Disabling %s prohibited.",
+    "unswitchableDesc": "The command %s has been protected from deactivation.",
     "notFound": "%s Couldn't find %s...",
     "notFoundDesc": "There is no command called `%s` here. \n Try `%shelp me` for more information."
   },

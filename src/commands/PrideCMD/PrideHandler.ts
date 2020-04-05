@@ -86,7 +86,13 @@ export class PrideHandler
         {
             if (instance.substr(0, instance.length - 3).toLocaleLowerCase() === token.toLocaleLowerCase())
             {
-                if (cmdList[instance] && (cmdList[instance].fn['switchable'] === undefined || cmdList[instance].fn['switchable'] === true))
+                if (cmdList[instance].fn['switchable'] === false)
+                {
+                    embed.setColor(this.lang.color.red)
+                        .setAuthor(util.format(this.lang.toggle.unswitchable, String.fromCodePoint(this.lang.icon.crossMark), token))
+                        .setDescription(util.format(this.lang.toggle.unswitchableDesc, `${CmdHandler.cmdPrefix}${token}`));
+                }
+                else if (cmdList[instance])
                 {
                     cfgFile[instance] = false;
                     CmdHandler.createConfig(cfgFile);
