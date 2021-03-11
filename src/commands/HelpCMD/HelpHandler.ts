@@ -3,31 +3,32 @@ import {CollectorFilter, Message, MessageEmbed, MessageReaction, User} from "dis
 import {CmdHandler} from "../../core/CmdHandler";
 import * as util from "util";
 import {PrideClient} from "../../core/PrideClient";
+import {HelpNavigator} from "./HelpNavigator";
+
 
 export class HelpHandler
 {
     private static lang = LangHandler.getLanguage(__dirname);
-
-    private static entriesPerPage = 15;
-    private static lastPage: number = Math.ceil(Object.keys(CmdHandler.getCmdList()).length / HelpHandler.entriesPerPage);
-    private static firstPage = 1;
-
     private static reactions = {first: '\u23EE', prev: '\u25C0', next: '\u25B6', last: '\u23ED'};
 
     // Sends help message and collect reactions to load next or previous help list pages (due to max. 2k chars in one msg)
-    public static sendHelpList(page: number, msg: Message): void
+    public static sendHelpList(page: number, entriesPerPage: number, msg: Message): void
     {
+        const helpNavigator = new HelpNavigator(page, entriesPerPage);
+
         // Define embed, set page in token, create commandList
         const embed = new MessageEmbed().setColor(this.lang.color.blue).setAuthor(this.lang.help.title);
-        page = page <= this.firstPage ? this.firstPage : page >= this.lastPage ? this.lastPage : page;
-        const list: string = this.prepareMessage(page);
+        const list: string = this.prepareMessage(helpNavigator.currPage, helpNavigator.entriesPerPage);
 
         // Send message into channel and wait for reactions to proceed
         msg.channel.send(embed
             .setDescription(`${this.lang.help.desc}${list}`)
-            .setFooter(util.format(this.lang.help.footer, page, this.lastPage))
+            .setFooter(util.format(this.lang.help.footer, helpNavigator.currPage, helpNavigator.lastPage))
         ).then((botMsg: Message) =>
         {
+            // Skip reactions if there is no need for that.
+            if (helpNavigator.firstPage === helpNavigator.lastPage) return;
+
             const reactionValues: string[] = Object.values(this.reactions);
             reactionValues.forEach((reaction: string) => botMsg.react(reaction));
 
@@ -39,12 +40,12 @@ export class HelpHandler
             // Event handling for reactions
             const listener: (reaction: MessageReaction) => void = (reaction: MessageReaction) =>
             {
-                const list: string = this.handleReaction(reaction, page);
+                const list: string = this.handleReaction(reaction, helpNavigator);
                 if (!list) return;
 
                 botMsg.edit(embed
                     .setDescription(`${this.lang.help.desc}${list}`)
-                    .setFooter(util.format(this.lang.help.footer, page, this.lastPage))
+                    .setFooter(util.format(this.lang.help.footer, helpNavigator.currPage, helpNavigator.lastPage))
                 );
             };
 
@@ -90,42 +91,35 @@ export class HelpHandler
     }
 
     // Listener for collected and removed reactions in helpList message
-    private static handleReaction(reaction: MessageReaction, page: number): string
+    private static handleReaction(reaction: MessageReaction, helpNavigator: HelpNavigator): string
     {
         switch (reaction.emoji.name)
         {
             case (this.reactions.first):
-                if (page === this.firstPage) return;
-                page = this.firstPage;
-                return this.prepareMessage(page);
+                return this.prepareMessage(helpNavigator.getFirstPage(), helpNavigator.entriesPerPage);
             case (this.reactions.prev):
-                if (page === this.firstPage) return;
-                page--;
-                return this.prepareMessage(page);
+                return this.prepareMessage(helpNavigator.getPreviousPage(), helpNavigator.entriesPerPage);
             case (this.reactions.next):
-                if (page === this.lastPage) return;
-                page++;
-                return this.prepareMessage(page);
+                return this.prepareMessage(helpNavigator.getNextPage(), helpNavigator.entriesPerPage);
             case (this.reactions.last):
-                if (page === this.lastPage) return;
-                page = this.lastPage;
-                return this.prepareMessage(page);
+                return this.prepareMessage(helpNavigator.getLastPage(), helpNavigator.entriesPerPage);
             default:
                 return;
         }
     }
 
     // Creates a string out of a list of commands
-    private static prepareMessage(page: number): string
+    private static prepareMessage(page: number, entriesPerPage: number): string
     {
         const commands: any = Object.values(CmdHandler.getCmdList());
-        let message = '', entry = -1;
+        const minEntries = (page - 1) * entriesPerPage, maxEntries = page * entriesPerPage;
+        let message = '', entry = 0;
 
         for (const instance of commands)
         {
             entry++;
-            if (entry < (page - 1) * this.entriesPerPage) continue;
-            if (entry >= page * this.entriesPerPage) break;
+            if (entry <= minEntries) continue;
+            if (entry > maxEntries) break;
 
             message += `${CmdHandler.cmdPrefix}${Array.isArray(instance.fn['command']) ?
                 instance.fn['command'].join(', ') : instance.fn['command']}\n`;
