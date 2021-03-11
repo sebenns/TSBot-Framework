@@ -3,6 +3,7 @@ import {Token} from '../../utils/Tokenizer';
 import {Message} from 'discord.js';
 import {HelpHandler} from "./HelpHandler";
 import {CmdHandler} from "../../core/CmdHandler";
+import {Action, ExecHandler} from "../../core/ExecHandler";
 
 export class HelpCmd implements Command
 {
@@ -34,7 +35,10 @@ export class HelpCmd implements Command
 
     public execute(msg: Message, tokens: Token[]): void
     {
-        const handler = [
+        if (!tokens || tokens.length === 0)
+            return HelpHandler.sendHelpList(0, this.entriesPerPage, msg);
+
+        const actions: Action[] = [
             {
                 token : ['page', 'p'],
                 action: (token, msg): void => this.sendHelpList(tokens, token, msg)
@@ -49,23 +53,7 @@ export class HelpCmd implements Command
             }
         ];
 
-        for (const argument of tokens)
-        {
-            let tokenLength = 0;
-            const currHandler = handler.find(handler =>
-                handler.token.find(token =>
-                {
-                    tokenLength = token.length;
-                    return argument.token.startsWith(token)
-                }));
-
-            if (currHandler)
-            {
-                return currHandler.action(argument.token.substr(tokenLength).trim(), msg);
-            }
-        }
-
-        return HelpHandler.sendHelpList(0, this.entriesPerPage, msg);
+        ExecHandler.run(actions, tokens, msg)
     }
 
     // Wrapper for calling the sendHelpList function of HelpHandler with entriesToken (if provided)

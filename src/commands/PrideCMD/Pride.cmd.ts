@@ -4,6 +4,7 @@ import {PrideHandler} from "./PrideHandler";
 import {CmdHandler} from "../../core/CmdHandler";
 import {Message} from 'discord.js';
 import {PermHandler} from "../../core/PermHandler";
+import {Action, ExecHandler} from "../../core/ExecHandler";
 
 export class PrideCmd implements Command
 {
@@ -13,7 +14,7 @@ export class PrideCmd implements Command
     ];
 
     public arguments = [
-        `\\breload(\\s(cmds|command(s)?|cmd|event(s)?))?`,
+        `\\b(reload|r)(\\s(cmds|command(s)?|cmd|event(s)?))?`,
         `\\b(disable|dis)(\\s\\w+)`,
         `\\b(enable|en)(\\s\\w+)`,
         `\\b(avatar|ava)\\shttp(s)?:\\/\\/[\\w.\\/]+`,
@@ -23,13 +24,13 @@ export class PrideCmd implements Command
     ];
 
     public usage = [
-        `${CmdHandler.cmdPrefix}pride reload cmd(s)|event(s)`,
+        `${CmdHandler.cmdPrefix}pride reload/r cmd(s)|event(s)`,
         `${CmdHandler.cmdPrefix}pride disable/dis <command>`,
         `${CmdHandler.cmdPrefix}pride enable/en <command>`,
         `${CmdHandler.cmdPrefix}pride avatar <url>`,
         `${CmdHandler.cmdPrefix}pride username <new username here>`,
         `${CmdHandler.cmdPrefix}pride prefix <new prefix here>`,
-        `${CmdHandler.cmdPrefix}pride owner`
+        `${CmdHandler.cmdPrefix}pride owner <@Owner>`
     ];
 
     public description = 'Make basic settings with the Pride command. De/activate commands, change username, avatar and prefix, transfer ownership.';
@@ -44,11 +45,13 @@ export class PrideCmd implements Command
     execute(msg: Message, tokens: Token[]): void
     {
         // Filter through tokens and execute action for specified token
-        if (tokens && tokens.length > 0)
+        if (!tokens || tokens.length === 0)
+            return PrideHandler.help(this.usage, msg);
+
         {
-            const handler = [
+            const actions: Action[] = [
                 {
-                    token : ['reload'],
+                    token : ['reload', 'r'],
                     action: (token, msg): void => PrideHandler.reload(token, msg)
                 },
                 {
@@ -77,20 +80,7 @@ export class PrideCmd implements Command
                 }
             ];
 
-            for (const argument of tokens)
-            {
-                const currHandler = handler.find(handler =>
-                    handler.token.find(token =>
-                        argument.token.startsWith(token)));
-
-                if (currHandler)
-                {
-                    if (argument.token.indexOf(' ') < 0) argument.token = '';
-                    return currHandler.action(argument.token.substr(argument.token.indexOf(' ') + 1), msg);
-                }
-            }
+            ExecHandler.run(actions, tokens, msg)
         }
-
-        return PrideHandler.help(this.usage, msg);
     }
 }
