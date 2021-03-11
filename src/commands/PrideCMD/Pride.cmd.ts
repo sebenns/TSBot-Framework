@@ -51,32 +51,32 @@ export class PrideCmd implements Command
         {
             const actions: Action[] = [
                 {
-                    token : ['reload', 'r'],
-                    action: (token, msg): void => PrideHandler.reload(token, msg)
+                    token: ['reload', 'r'],
+                    call : (token, msg): void => PrideHandler.reload(token, msg)
                 },
                 {
-                    token : ['disable', 'dis'],
-                    action: (token, msg): void => PrideHandler.disable(token, msg)
+                    token: ['disable', 'dis'],
+                    call : (token, msg): void => PrideHandler.disable(token, msg)
                 },
                 {
-                    token : ['enable', 'en'],
-                    action: (token, msg): void => PrideHandler.enable(token, msg)
+                    token: ['enable', 'en'],
+                    call : (token, msg): void => PrideHandler.enable(token, msg)
                 },
                 {
-                    token : ['avatar', 'ava'],
-                    action: (token, msg): void => PrideHandler.changeAvatar(token, msg)
+                    token: ['avatar', 'ava'],
+                    call : (token, msg): void => PrideHandler.changeAvatar(token, msg)
                 },
                 {
-                    token : ['username', 'uname'],
-                    action: (token, msg): void => PrideHandler.changeUserName(token, msg)
+                    token: ['username', 'uname'],
+                    call : (token, msg): void => PrideHandler.changeUserName(token, msg)
                 },
                 {
-                    token : ['prefix'],
-                    action: (token, msg): void => PrideHandler.changePrefix(token, msg)
+                    token: ['prefix'],
+                    call : (token, msg): void => PrideHandler.changePrefix(token, msg)
                 },
                 {
-                    token : ['owner'],
-                    action: (token, msg): void => PrideHandler.changeOwner(token, msg)
+                    token: ['owner'],
+                    call : (token, msg): void => PrideHandler.changeOwner(token, msg)
                 }
             ];
 

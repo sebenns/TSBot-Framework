@@ -40,16 +40,16 @@ export class HelpCmd implements Command
 
         const actions: Action[] = [
             {
-                token : ['page', 'p'],
-                action: (token, msg): void => this.sendHelpList(tokens, token, msg)
+                token: ['page', 'p'],
+                call : (token, msg): void => this.sendHelpList(tokens, token, msg)
             },
             {
-                token : ['entries', 'e'],
-                action: (token, msg): void => HelpHandler.sendHelpList(0, token, msg)
+                token: ['entries', 'e'],
+                call : (token, msg): void => HelpHandler.sendHelpList(0, token, msg)
             },
             {
-                token : ['usage', 'u'],
-                action: (token, msg): void => HelpHandler.sendUsage(token, msg)
+                token: ['usage', 'u'],
+                call : (token, msg): void => HelpHandler.sendUsage(token, msg)
             }
         ];
 
