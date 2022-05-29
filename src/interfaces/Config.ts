@@ -1,18 +1,13 @@
-import {Snowflake} from 'discord.js';
+import { Snowflake } from "discord.js";
 
-export interface Config
-{
-    /** DiscordId **/
-    owner: Snowflake;
-    /** Command prefix **/
-    prefix: string;
-    /** Discord Token **/
-    token: string;
+export interface Config {
+  owner: Snowflake;
+  prefix: string;
+  token: string;
 }
 
-/** @ignore */
 export const ConfigExample: Config = {
-    owner: 'UserID here.',
-    prefix: '!',
-    token: 'Your Token here.'
+  owner: "UserID here.",
+  prefix: "!",
+  token: "Your Token here.",
 };

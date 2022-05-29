@@ -1,10 +1,8 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es2015",
+    "target": "es2022",
     "sourceMap": false
   },
-  "exclude": [
-    "src/node_modules"
-  ]
+  "exclude": ["src/node_modules"]
 }
